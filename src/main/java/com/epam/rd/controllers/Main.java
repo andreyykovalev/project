@@ -19,24 +19,24 @@ public class Main extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String pageLanguage = null;
+        String pageLanguage;
         HttpSession session = request.getSession();
-        String sessionPageLang = (String) session.getAttribute("lang");
-
-
-        String langByRequest = request.getParameter("lang");
-        if (langByRequest != null) {
-            pageLanguage = langByRequest;
-        } else if (sessionPageLang != null) {
-            pageLanguage = sessionPageLang;
+        String pageLangRequest = request.getParameter("lang");
+        if(pageLangRequest == null) {
+            String pageLanguageSession = (String) session.getAttribute("lang");
+            session.setAttribute("lang", pageLanguageSession);
+            LanguageDefiner.definePageLang(pageLanguageSession);
+            localizePageAttributes(request);
+            pageLanguage = pageLanguageSession;
+        } else {
+            session.setAttribute("lang", pageLangRequest);
+            LanguageDefiner.definePageLang(pageLangRequest);
+            localizePageAttributes(request);
+            pageLanguage = pageLangRequest;
         }
 
-        LanguageDefiner.definePageLang(pageLanguage);
-
-        session.setAttribute("lang", pageLanguage);
 
 
-        localizePageAttributes(request);
 
         String customerInitials = (String) session.getAttribute("keycustomer");
         request.setAttribute("keycustomer", customerInitials);

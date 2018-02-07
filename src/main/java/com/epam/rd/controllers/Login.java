@@ -22,12 +22,17 @@ public class Login extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         HttpSession session = request.getSession();
-        String pageLanguage = (String) session.getAttribute("lang");
-        session.setAttribute("lang", pageLanguage);
-
-        LanguageDefiner.definePageLang(pageLanguage);
-
-        localizePageAttributes(request);
+        String pageLangRequest = request.getParameter("lang");
+        if(pageLangRequest == null) {
+            String pageLanguage = (String) session.getAttribute("lang");
+            session.setAttribute("lang", pageLanguage);
+            LanguageDefiner.definePageLang(pageLanguage);
+            localizePageAttributes(request);
+        } else {
+            session.setAttribute("lang", pageLangRequest);
+            LanguageDefiner.definePageLang(pageLangRequest);
+            localizePageAttributes(request);
+        }
 
 
         String url = "/login.jsp";

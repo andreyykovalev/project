@@ -11,7 +11,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="<c:url value="/main?lang"/>" style="padding:15px 15px;"> <c:if
+                <a class="navbar-brand" href="<c:url value="/main"/>" style="padding:15px 15px;"> <c:if
                         test="${main == null}"> Internet provider </c:if>${main}</a>
             </div>
             <div class="collapse navbar-collapse js-navbar">
@@ -40,8 +40,8 @@
                         
                             <li class="divider"></li>
                             <li>
-                                <a href="/main?lang=en">English</a>
-                                <a href="/main?lang=ru">Русский</a>
+                                <a href="?lang=en">English</a>
+                                <a href="?lang=ru">Русский</a>
                             </li>
                         </ul>
                     </li>
