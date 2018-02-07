@@ -222,4 +222,14 @@
         <url-pattern>/admin/register</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>SessionInvalidate</servlet-name>
+        <servlet-class>com.epam.rd.controllers.SessionInvalidation</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>SessionInvalidate</servlet-name>
+        <url-pattern>/invalidate</url-pattern>
+    </servlet-mapping>
+
 </web-app>

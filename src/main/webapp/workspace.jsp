@@ -8,7 +8,7 @@
     EntityCustomer customer=(EntityCustomer) session.getAttribute("customer");
     if(customer == null)
     {
-        response.sendRedirect("/login.jsp");
+        response.sendRedirect("/login");
     }else{ %>
 
 <html>
@@ -28,20 +28,20 @@
 </head>
 <jsp:include page="/header.jsp"/>
 <body>
-<div align="right"> Your current balance is: ${balance} </div>
+<div align="right">  <c:if test="${labelbalance == null}"> Your current balance  </c:if>${labelbalance}: ${balance}</div>
 <div align="center">
-    <h5 align="left" style="margin-left: 10px">  The tariffs you are currently subscribed</h5>
+    <h5 align="left" style="margin-left: 10px">  <c:if test="${workspacemessage == null}"> The tariffs you are currently subscribed </c:if> ${workspacemessage}</h5>
     <span id="span_big">
 
         <table class="table table-hover">
             <thead>
             <tr>
-                <th><c:if test="${details == null}"> Title </c:if> ${details}</th>
-                <th><c:if test="${picture == null}"> Price </c:if> ${picture}</th>
+                <th><c:if test="${workspacetitle == null}"> Title </c:if> ${workspacetitle}</th>
+                <th><c:if test="${price == null}"> Price </c:if> ${price}</th>
                 <th><c:if test="${description == null}"> Description </c:if> ${description}</th>
-                <th><c:if test="${price == null}"> Start date </c:if> ${price}</th>
-                <th><c:if test="${title == null}"> End date </c:if> ${title}</th>
-                <th><c:if test="${details == null}"> Status </c:if> </th>
+                <th><c:if test="${startdate == null}"> Start date </c:if> ${startdate}</th>
+                <th><c:if test="${enddate == null}"> End date </c:if> ${enddate}</th>
+                <th><c:if test="${status == null}"> Status </c:if>${status} </th>
             </tr>
             </thead>
             <tbody>
@@ -67,11 +67,11 @@
         <form action="replenish" method="get">
             <input type="hidden" name="action" value="replenish">
 
-            <label>Amount:</label><br>
+            <label><c:if test="${amount == null}"> Status </c:if>${amount} :</label><br>
 
             <input type="number" name="amount" value="" required><br>
 
-    <input type="submit" value="replenish" id="submit "/>
+    <input type="submit" value="<c:if test="${replenish == null}"> Status </c:if>${replenish} " id="submit "/>
 </form>
 
             <img id="img2" src="pictures/cabinet.jpg" alt="Изображение" title="Изображение">
@@ -79,5 +79,6 @@
     </span>
 </div>
 </body>
+<jsp:include page="footer.jsp"/>
 </html>
 <% } %>

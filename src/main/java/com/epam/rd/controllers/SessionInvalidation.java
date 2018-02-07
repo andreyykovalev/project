@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
-public class Main extends HttpServlet {
+public class SessionInvalidation extends HttpServlet {
 
 
     @Override
@@ -35,42 +35,12 @@ public class Main extends HttpServlet {
             pageLanguage = pageLangRequest;
         }
 
+        session.invalidate();
+        HttpSession session2 = request.getSession();
+        session2.setAttribute("lang", pageLanguage);
 
-        String customerInitials = (String) session.getAttribute("keycustomer");
-        request.setAttribute("keycustomer", customerInitials);
+        response.sendRedirect("/main");
 
-        int langId;
-        if (pageLanguage == null || pageLanguage.equals("en") || pageLanguage.equals("")) {
-            langId = 1;
-        } else langId = 2;
-
-
-        ModelPackage factory = new ModelPackage(langId);
-        List packages = factory.load();
-        //    EntityPackage pack = factory.load((long)13);
-        //     request.setAttribute("pack", pack);
-        request.setAttribute("packages", packages);
-
-
-        String url;
-        RequestDispatcher rd;
-
-        url = "/main.jsp";
-
-        String action;
-        boolean isResponceSent = false;
-        action = request.getParameter("action");
-        if (action != null) {
-            if (action.equals("invalidate")) {
-                invalidateSession(session);
-                response.sendRedirect("/SessionInvalidation");
-                isResponceSent = true;
-            }
-        }
-        if(!isResponceSent){
-        rd = request.getRequestDispatcher(url);
-        rd.forward(request, response);
-        }
     }
 
     private static void localizePageAttributes(HttpServletRequest request) {
@@ -109,9 +79,5 @@ public class Main extends HttpServlet {
 
         String buttonDetails = LocaleMessageProvider.getInstance().encode("button_details");
         request.setAttribute("buttondetails", buttonDetails);
-    }
-
-    private static void invalidateSession(HttpSession session) {
-        session.invalidate();
     }
 }

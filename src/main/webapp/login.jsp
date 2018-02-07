@@ -12,20 +12,22 @@
 
 <jsp:include page="/header.jsp" />
 
-<body style="background-color: #cecaff">
+<body style="background-color: #cecaff;">
 
 <p><i>${message}</i></p>
 <h6><c:if test="${login_welcome == null}">Please, enter your email and password to login</c:if>${login_welcome}</h6>
-<form action="login" method="get">
+<form action="<c:url value="/login"/>" method="get">
     <input type="hidden" name="action" value="log">
 
-    <label>Email:</label><br>
+    <label><c:if test="${labelemail == null}">Email</c:if>${labelemail}:</label><br>
     <input type="email" name="email" value="${requestScope['user'].mail}" required><br>
 
-    <label>Password:</label><br>
+    <label><c:if test="${labelpassword == null}">Password</c:if>${labelpassword}:</label><br>
     <input type="password" name="password" value="${requestScope['user'].password}" required><br>
 
-    <input type="submit" value="Login" id="submit "/>
+    <input type="submit" value="<c:if test="${login == null}">Login</c:if>${login}" id="submit "/>
+
+
 </form>
 
 </body>

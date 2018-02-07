@@ -25,7 +25,7 @@
                         <ul class="dropdown-menu">
 
                             <c:if test="${keycustomer == null}">
-                                <li><a href="<c:url value="/login?lang"/>">
+                                <li><a href="<c:url value="/login?lang&action=login"/>">
 
                                     <c:if test="${login == null}"> Login </c:if>${login} </a></li>
 
@@ -34,7 +34,7 @@
                             </c:if>
                             <li>
                             <c:if test="${keycustomer != null}">
-                                <a href="<c:url value="/main?action=invalidate"/>">Log out</a>
+                                <a href="<c:url value="/invalidate"/>">Log out</a>
                             </c:if>
                             </li>
                         

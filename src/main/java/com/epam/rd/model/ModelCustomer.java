@@ -155,22 +155,6 @@ public class ModelCustomer extends Model {
         }
         return rowInserted;
     }
-
-	/*public void create(EntityCustomer customer) {
-        update(String.format(
-				CREATE_CUSTOMER,
-				customer.getFirstname(),
-				customer.getLastname(),
-				customer.getMail(),
-				customer.getPassword(),
-				customer.getBalance())
-		);
-
-		if (!customer.getPackages().isEmpty()) {
-			customer.getPackages().forEach((Long v) -> update(String.format(CREATE_CUSTOMER_PACKAGES, lastId, v)));
-		}
-	}*/
-
     private void deletePackages(EntityCustomer customer) {
         update(String.format(DELETE_PACKAGES, customer.getId()));
     }

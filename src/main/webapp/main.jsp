@@ -41,7 +41,7 @@
                 <td><c:out value="${product.price}" /></td>
                 <td><c:out value="${product.name}" /></td>
 
-                <td><a href="/internet?id=${product.id}"> Details </a></td>
+                <td><a href="/internet?id=${product.id}"> <c:if test="${buttondetails == null}"> Details </c:if> ${buttondetails} </a></td>
 
             </tr>
             </c:forEach>
@@ -51,7 +51,7 @@
         <c:if test="${keycustomer != null}">
         <span id="span_small">
 
-                <h6><a href="/workspace"><c:if test="${workspace == null}"> My workspace </c:if> ${workspace}</a></h6>
+                <h6><a href="/workspace"> <c:if test="${workspace == null}"> My workspace </c:if> ${workspace} </a></h6>
 
             <img id="img2" src="pictures/cabinet.jpg" alt="Изображение" title="Изображение">
 

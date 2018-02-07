@@ -7,6 +7,7 @@ import com.epam.rd.model.entity.EntityCustomer;
 import com.epam.rd.util.LanguageDefiner;
 import com.epam.rd.util.LocaleMessageProvider;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -23,7 +24,8 @@ public class Login extends HttpServlet {
 
         HttpSession session = request.getSession();
         String pageLangRequest = request.getParameter("lang");
-        if(pageLangRequest == null) {
+
+        if(pageLangRequest == null || pageLangRequest.equals("")) {
             String pageLanguage = (String) session.getAttribute("lang");
             session.setAttribute("lang", pageLanguage);
             LanguageDefiner.definePageLang(pageLanguage);
@@ -33,73 +35,80 @@ public class Login extends HttpServlet {
             LanguageDefiner.definePageLang(pageLangRequest);
             localizePageAttributes(request);
         }
-
-
         String url = "/login.jsp";
-        String email = request.getParameter("email");
-        String password = request.getParameter("password");
-        EntityCustomer user = new EntityCustomer(email, password);
-        String message = "";
 
-
-        if (email != null && password != null) {
-
-            ModelCustomer factory = new ModelCustomer();
-            List<EntityCustomer> users = factory.load();
-
-            boolean isUserFound = false;
-            for (int i = 0; i < users.size(); i++) {
-                String userEmail = users.get(i).getMail();
-                String userPassword = users.get(i).getPassword();
-                if (userEmail.equals(email) && userPassword.equals(password)) {
-                    message = "";
-                    url = "/main";
-                    isUserFound = true;
-                }
-            }
-
-            if (isUserFound) {
-                EntityCustomer user1 = factory.loadByEmail(email);
-                if (user1 != null) {
-                    session.setAttribute("customer", user1);
-                    session.setAttribute("customer_id", user1.getId());
-                    session.setAttribute("keycustomer", user1.getFirstname() + " " + user1.getLastname());
-                }
-            }
-
-            if (!isUserFound) {
-                for (int i = 0; i < users.size(); i++) {
-                    String userEmail = users.get(i).getMail();
-
-                    if (!userEmail.equals(email)) {
-                        String noSuchEmail = LocaleMessageProvider.getInstance().encode("no_such_email"); // Hey look here
-                        message = noSuchEmail;
-                        url = "/login.jsp";
-                    }
-
-                }
-
-                for (int i = 0; i < users.size(); i++) {
-                    String userEmail = users.get(i).getMail();
-                    String userPassword = users.get(i).getPassword();
-
-                    if (userEmail.equals(email) && !userPassword.equals(password)) {
-                        String wrongPassword = LocaleMessageProvider.getInstance().encode("wrong_password");
-                        message = wrongPassword;
-                        url = "/login.jsp";
-                    }
-                }
+        String action = request.getParameter("action");
+        if(action != null){
+            if(action.equals("login")){
+                RequestDispatcher rd = request.getRequestDispatcher(url);
+                rd.forward(request,response);
             }
         }
 
-        request.setAttribute("user", user);
-        request.setAttribute("message", message);
+        if(!action.equals("login")) {
+            String email = request.getParameter("email");
+            String password = request.getParameter("password");
+            EntityCustomer user = new EntityCustomer(email, password);
+            String message = "";
 
 
-        getServletContext()
-                .getRequestDispatcher(url)
-                .forward(request, response);
+            if (email != null && password != null) {
 
+                ModelCustomer factory = new ModelCustomer();
+                List<EntityCustomer> users = factory.load();
+
+                boolean isUserFound = false;
+                for (int i = 0; i < users.size(); i++) {
+                    if(users.get(i).getMail() != null && users.get(i).getPassword() != null) {
+                        String userEmail = users.get(i).getMail();
+                        String userPassword = users.get(i).getPassword();
+                        if (userEmail.equals(email) && userPassword.equals(password)) {
+                            message = "";
+                            url = "/main";
+                            isUserFound = true;
+                        }
+                    }
+                }
+
+                if (isUserFound) {
+                    EntityCustomer user1 = factory.loadByEmail(email);
+                    if (user1 != null) {
+                        session.setAttribute("customer", user1);
+                        session.setAttribute("customer_id", user1.getId());
+                        session.setAttribute("keycustomer", user1.getFirstname() + " " + user1.getLastname());
+                    }
+                }
+
+                if (!isUserFound) {
+                    for (int i = 0; i < users.size(); i++) {
+                        String userEmail = users.get(i).getMail();
+
+                        if (!userEmail.equals(email)) {
+                            String noSuchEmail = LocaleMessageProvider.getInstance().encode("no_such_email"); // Hey look here
+                            message = noSuchEmail;
+                            url = "/login.jsp";
+                        }
+
+                    }
+
+                    for (int i = 0; i < users.size(); i++) {
+                        String userEmail = users.get(i).getMail();
+                        String userPassword = users.get(i).getPassword();
+
+                        if (userEmail.equals(email) && !userPassword.equals(password)) {
+                            String wrongPassword = LocaleMessageProvider.getInstance().encode("wrong_password");
+                            message = wrongPassword;
+                            url = "/login.jsp";
+                        }
+                    }
+                }
+            }
+
+            request.setAttribute("user", user);
+            request.setAttribute("message", message);
+
+            response.sendRedirect(url);
+        }
     }
 
     private static void localizePageAttributes(HttpServletRequest request) {
@@ -117,5 +126,14 @@ public class Login extends HttpServlet {
 
         String settings = LocaleMessageProvider.getInstance().encode("settings");
         request.setAttribute("settings", settings);
+
+        String currentDate = LocaleMessageProvider.getInstance().encode("currentDate");
+        request.setAttribute("currentdate", currentDate);
+
+        String password = LocaleMessageProvider.getInstance().encode("labelPassword");
+        request.setAttribute("labelpassword", password);
+
+        String email = LocaleMessageProvider.getInstance().encode("labelEmail");
+        request.setAttribute("labelemail", email);
     }
 }
