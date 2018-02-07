@@ -1,9 +1,9 @@
 package com.epam.rd.controllers;
 
-import com.epam.rd.ConnectionPool;
+
 import com.epam.rd.model.ModelCustomer;
 import com.epam.rd.model.entity.EntityCustomer;
-import com.epam.rd.service.DaoUser;
+
 import com.epam.rd.util.LanguageDefiner;
 import com.epam.rd.util.LocaleMessageProvider;
 
@@ -15,7 +15,6 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
-import static com.epam.rd.util.LanguageDefiner.definePageLang;
 
 public class Login extends HttpServlet {
 
@@ -37,9 +36,7 @@ public class Login extends HttpServlet {
         EntityCustomer user = new EntityCustomer(email, password);
         String message = "";
 
-        // TODO: ПРИВЯЗАТЬ ModelCustomer к контролеру.
-        // TODO: ЛОКАЛИЗАЦИЯ СТРАНИЦ.
-        //
+
         if (email != null && password != null) {
 
             ModelCustomer factory = new ModelCustomer();

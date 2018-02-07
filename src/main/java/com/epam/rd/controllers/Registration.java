@@ -3,7 +3,6 @@ package com.epam.rd.controllers;
 import com.epam.rd.ConnectionPool;
 import com.epam.rd.model.ModelCustomer;
 import com.epam.rd.model.entity.EntityCustomer;
-import com.epam.rd.service.DaoUser;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;

@@ -1,10 +1,7 @@
 package com.epam.rd.controllers.admin;
 
-import com.epam.rd.model.ModelCustomer;
 import com.epam.rd.model.ModelUser;
-import com.epam.rd.model.entity.EntityCustomer;
 import com.epam.rd.model.entity.EntityUser;
-import com.epam.rd.util.LanguageDefiner;
 import com.epam.rd.util.LocaleMessageProvider;
 
 import javax.servlet.ServletException;
