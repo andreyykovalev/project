@@ -1,0 +1,225 @@
+<!DOCTYPE web-app PUBLIC
+        "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+        "http://java.sun.com/dtd/web-app_2_3.dtd" >
+
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee"
+         xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+         id="WebApp_ID" version="2.5">
+    <display-name>Archetype Created Web Application</display-name>
+
+    <welcome-file-list>
+        <welcome-file>main</welcome-file>
+    </welcome-file-list>
+
+    <servlet>
+        <servlet-name>Index</servlet-name>
+        <servlet-class>com.epam.rd.controllers.Index</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>Index</servlet-name>
+        <url-pattern>/internet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>Registration</servlet-name>
+        <servlet-class>com.epam.rd.controllers.Registration</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>Registration</servlet-name>
+        <url-pattern>/register</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>Login</servlet-name>
+        <servlet-class>com.epam.rd.controllers.Login</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>Login</servlet-name>
+        <url-pattern>/login</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>Main</servlet-name>
+        <servlet-class>com.epam.rd.controllers.Main</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>Main</servlet-name>
+        <url-pattern>/main</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>Workspace</servlet-name>
+        <servlet-class>com.epam.rd.controllers.Workspace</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>Workspace</servlet-name>
+        <url-pattern>/workspace</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>Replenish</servlet-name>
+        <servlet-class>com.epam.rd.controllers.Workspace</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>Replenish</servlet-name>
+        <url-pattern>/replenish</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AdminMain</servlet-name>
+        <servlet-class>com.epam.rd.controllers.admin.PackageManaging</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>AdminMain</servlet-name>
+        <url-pattern>/admin/main</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>NewPackage</servlet-name>
+        <servlet-class>com.epam.rd.controllers.admin.PackageManaging</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>NewPackage</servlet-name>
+        <url-pattern>/admin/new</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>PackageInsert</servlet-name>
+        <servlet-class>com.epam.rd.controllers.admin.PackageManaging</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>PackageInsert</servlet-name>
+        <url-pattern>/admin/insert</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>PackageShow</servlet-name>
+        <servlet-class>com.epam.rd.controllers.admin.PackageManaging</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>PackageShow</servlet-name>
+        <url-pattern>/admin/list</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>PackageDelete</servlet-name>
+        <servlet-class>com.epam.rd.controllers.admin.PackageManaging</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>PackageDelete</servlet-name>
+        <url-pattern>/admin/delete</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>PackageEdit</servlet-name>
+        <servlet-class>com.epam.rd.controllers.admin.PackageManaging</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>PackageEdit</servlet-name>
+        <url-pattern>/admin/edit</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>PackageUpdate</servlet-name>
+        <servlet-class>com.epam.rd.controllers.admin.PackageManaging</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>PackageUpdate</servlet-name>
+        <url-pattern>/admin/update</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>CustomerMain</servlet-name>
+        <servlet-class>com.epam.rd.controllers.admin.CustomersManaging</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>CustomerMain</servlet-name>
+        <url-pattern>/customer/main</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>OrdersMain</servlet-name>
+        <servlet-class>com.epam.rd.controllers.admin.OrdersManaging</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>OrdersMain</servlet-name>
+        <url-pattern>/orders/main</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>OrdersList</servlet-name>
+        <servlet-class>com.epam.rd.controllers.admin.OrdersManaging</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>OrdersList</servlet-name>
+        <url-pattern>/orders/list</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>OrdersEdit</servlet-name>
+        <servlet-class>com.epam.rd.controllers.admin.OrdersManaging</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>OrdersEdit</servlet-name>
+        <url-pattern>/orders/edit</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>OrdersDelete</servlet-name>
+        <servlet-class>com.epam.rd.controllers.admin.OrdersManaging</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>OrdersDelete</servlet-name>
+        <url-pattern>/orders/delete</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>OrdersUpdate</servlet-name>
+        <servlet-class>com.epam.rd.controllers.admin.OrdersManaging</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>OrdersUpdate</servlet-name>
+        <url-pattern>/orders/update</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AdminLogin</servlet-name>
+        <servlet-class>com.epam.rd.controllers.admin.Login</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>AdminLogin</servlet-name>
+        <url-pattern>/admin/login</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AdminRegistration</servlet-name>
+        <servlet-class>com.epam.rd.controllers.admin.Registration</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>AdminRegistration</servlet-name>
+        <url-pattern>/admin/register</url-pattern>
+    </servlet-mapping>
+
+</web-app>
