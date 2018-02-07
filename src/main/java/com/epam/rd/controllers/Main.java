@@ -42,7 +42,7 @@ public class Main extends HttpServlet {
         request.setAttribute("keycustomer", customerInitials);
 
         int langId;
-        if (pageLanguage == null || pageLanguage.equals("en")) {
+        if (pageLanguage == null || pageLanguage.equals("en") || pageLanguage.equals("")) {
             langId = 1;
         } else langId = 2;
 
@@ -101,6 +101,9 @@ public class Main extends HttpServlet {
 
         String details = LocaleMessageProvider.getInstance().encode("details");
         request.setAttribute("details", details);
+
+        String workspace = LocaleMessageProvider.getInstance().encode("workspace");
+        request.setAttribute("workspace", workspace);
     }
 
     private static void invalidateSession(HttpSession session) {

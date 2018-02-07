@@ -16,7 +16,7 @@
 
 <body style="background-color: #cecaff">
 
-<h4> <c:if test="${welcome == null}"> Welcome </c:if> ${welcome} ${keycustomer}</h4>
+<h4> <c:if test="${welcome == null}"><h4> Welcome </h4>></c:if> ${welcome} ${keycustomer}</h4>
 
 <div id="wrapper">
     <div id="articles">
@@ -29,9 +29,8 @@
                 <th><c:if test="${description == null}"> Description </c:if> ${description}</th>
                 <th><c:if test="${price == null}"> Price </c:if> ${price}</th>
                 <th><c:if test="${title == null}"> Title </c:if> ${title}</th>
-                <c:if test="${keycustomer != null}">
                 <th><c:if test="${details == null}"> Details </c:if> ${details}</th>
-                </c:if>
+
             </tr>
             </thead>
             <tbody>
@@ -41,9 +40,9 @@
                 <td><c:out value="${product.description}" /></td>
                 <td><c:out value="${product.price}" /></td>
                 <td><c:out value="${product.name}" /></td>
-                <c:if test="${keycustomer != null}">
-                <td><a href="/internet?id=${product.id}">Button </a></td>
-                </c:if>
+
+                <td><a href="/internet?id=${product.id}"> Details </a></td>
+
             </tr>
             </c:forEach>
             </tbody>
@@ -52,7 +51,7 @@
         <c:if test="${keycustomer != null}">
         <span id="span_small">
 
-                <h6><a href="/workspace">Your workspace</a></h6>
+                <h6><a href="/workspace"><c:if test="${workspace == null}"> My workspace </c:if> ${workspace}</a></h6>
 
             <img id="img2" src="pictures/cabinet.jpg" alt="Изображение" title="Изображение">
 
