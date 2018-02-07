@@ -2,6 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <%
     EntityCustomer customer=(EntityCustomer) session.getAttribute("customer");
@@ -49,8 +50,8 @@
                 <td><c:out value="${product.packages.name}"/></td>
                 <td><c:out value="${product.packages.price}"/></td>
                 <td><c:out value="${product.packages.description}"/></td>
-                <td><c:out value="${product.createdAt}"/></td>
-                <td><c:out value="${product.dateEnd}"/></td>
+                <td><fmt:formatDate value="${product.createdAt}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
+                <td><fmt:formatDate value="${product.dateEnd}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
                 <td><c:if test="${product.status == true}"> Active </c:if>
                 <c:if test="${product.status == false}"> Cancelled </c:if></td>
 

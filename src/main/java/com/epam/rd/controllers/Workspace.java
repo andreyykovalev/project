@@ -48,6 +48,7 @@ public class Workspace extends HttpServlet {
         long customerId = (long) session.getAttribute("customer_id");
         List<EntityWorkOrder> listOrders = modelWorkOrder.load(1);
         List<EntityWorkOrder> listOrdersThisCustomer = new ArrayList<>();
+
         for (EntityWorkOrder workOrder : listOrders) {
             if (workOrder.getCustomer().getId() == customerId) {
                 listOrdersThisCustomer.add(workOrder);
@@ -66,7 +67,7 @@ public class Workspace extends HttpServlet {
             }
         }
 
-        request.setAttribute("listOrders", listOrders);
+        request.setAttribute("listOrders", listOrdersThisCustomer);
         RequestDispatcher dispatcher = request.getRequestDispatcher(url);
 
         dispatcher.forward(request, response);
