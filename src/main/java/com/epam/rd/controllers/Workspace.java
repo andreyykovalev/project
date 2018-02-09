@@ -32,7 +32,7 @@ public class Workspace extends HttpServlet {
         HttpSession session = request.getSession();
 
         String pageLangRequest = request.getParameter("lang");
-        if(pageLangRequest == null) {
+        if (pageLangRequest == null) {
             String pageLanguage = (String) session.getAttribute("lang");
             session.setAttribute("lang", pageLanguage);
             LanguageDefiner.definePageLang(pageLanguage);
@@ -44,20 +44,25 @@ public class Workspace extends HttpServlet {
         }
 
 
-
         EntityCustomer customer = (EntityCustomer) session.getAttribute("customer");
         if (customer == null) {
             response.sendRedirect("/login.jsp");
         } else {
-
             try {
-                listProduct(request, response);
-
-            } catch (Exception ex) {
-                throw new ServletException(ex);
+                String action = request.getServletPath();
+                switch (action) {
+                    case "/sort":
+                 //       updatePackage(request, response);
+                        break;
+                    default:
+                        listProduct(request, response);
+                        break;
+                }
+            } catch(Exception ex){
+                    throw new ServletException(ex);
+                }
             }
         }
-    }
 
     private void listProduct(HttpServletRequest request, HttpServletResponse response)
             throws Exception {

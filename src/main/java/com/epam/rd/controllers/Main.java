@@ -2,6 +2,8 @@ package com.epam.rd.controllers;
 
 
 import com.epam.rd.model.ModelPackage;
+import com.epam.rd.util.PackageSortByName;
+import com.epam.rd.util.PackageSortByPrice;
 import com.epam.rd.util.LanguageDefiner;
 import com.epam.rd.util.LocaleMessageProvider;
 
@@ -12,6 +14,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 public class Main extends HttpServlet {
@@ -22,7 +26,7 @@ public class Main extends HttpServlet {
         String pageLanguage;
         HttpSession session = request.getSession();
         String pageLangRequest = request.getParameter("lang");
-        if(pageLangRequest == null) {
+        if (pageLangRequest == null) {
             String pageLanguageSession = (String) session.getAttribute("lang");
             session.setAttribute("lang", pageLanguageSession);
             LanguageDefiner.definePageLang(pageLanguageSession);
@@ -49,6 +53,24 @@ public class Main extends HttpServlet {
         List packages = factory.load();
         //    EntityPackage pack = factory.load((long)13);
         //     request.setAttribute("pack", pack);
+
+        String path = request.getServletPath();
+
+        if (path.equals("/price/sort")) {
+            PackageSortByPrice epcomp = new PackageSortByPrice();
+            packages.sort(epcomp);
+        }
+        else if (path.equals("/name/sort")) {
+            PackageSortByName epcomp = new PackageSortByName();
+            packages.sort(epcomp);
+        } else if(path.equals("/reverse/name/sort")) {
+            PackageSortByName epcomp = new PackageSortByName();
+            packages.sort(epcomp);
+            Collections.reverse(packages);
+        }
+
+
+
         request.setAttribute("packages", packages);
 
 
@@ -67,9 +89,9 @@ public class Main extends HttpServlet {
                 isResponceSent = true;
             }
         }
-        if(!isResponceSent){
-        rd = request.getRequestDispatcher(url);
-        rd.forward(request, response);
+        if (!isResponceSent) {
+            rd = request.getRequestDispatcher(url);
+            rd.forward(request, response);
         }
     }
 

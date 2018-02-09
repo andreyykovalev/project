@@ -21,6 +21,12 @@
 <div id="wrapper">
     <div id="articles">
     <span id="span_big">
+        <div style="border: inherit;min-height: 40px; padding: 5px;">
+            <h6>Sort by:
+    <a style="margin-left: 5px;" href="<c:url value="/price/sort"/>">price</a>
+    <a style="margin-left: 5px;" href="<c:url value="/name/sort"/>">a-z</a>
+    <a style="margin-left: 5px;" href="<c:url value="/reverse/name/sort"/>">z-a</a></h6>
+</div>
 
         <table class="table table-hover">
             <thead>

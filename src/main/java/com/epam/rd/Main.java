@@ -1,34 +1,25 @@
 package com.epam.rd;
 
 
-import com.epam.rd.model.ModelWorkOrder;
-import com.epam.rd.model.entity.EntityWorkOrder;
+import com.epam.rd.model.ModelPackage;
+import com.epam.rd.util.PackageSortByPrice;
 
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 public class Main {
     public static void main(String[] args) throws ParseException {
-        ModelWorkOrder modelWorkOrder = new ModelWorkOrder();
-        List<EntityWorkOrder> listProducts = modelWorkOrder.load(1);
-        List dateEnd = new ArrayList();
-        for (int i = 0; i < listProducts.size(); i++) {
-            Date date = listProducts.get(i).getDateEnd();
-            String str = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").format(date);
-            dateEnd.add(str);
+        ModelPackage factory = new ModelPackage(1);
+        List packages = factory.load();
+        //    EntityPackage pack = factory.load((long)13);
+        //     request.setAttribute("pack", pack);
+
+            PackageSortByPrice epcomp = new PackageSortByPrice();
+            packages.sort(epcomp);
+
+        for (int i = 0; i < packages.size(); i++) {
+            System.out.println(packages.get(i));
         }
-        for (int i = 0; i < listProducts.size(); i++) {
-            System.out.println(listProducts.get(i).getCustomer().getFirstname());
-            System.out.println(dateEnd.get(i));
-        }
-
-
-
 
     }
 }

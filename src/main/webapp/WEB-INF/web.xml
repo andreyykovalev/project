@@ -232,4 +232,34 @@
         <url-pattern>/invalidate</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>PackageSortByPrice</servlet-name>
+        <servlet-class>com.epam.rd.controllers.Main</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>PackageSortByPrice</servlet-name>
+        <url-pattern>/price/sort</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>PackageSortByNameA-Z</servlet-name>
+        <servlet-class>com.epam.rd.controllers.Main</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>PackageSortByNameA-Z</servlet-name>
+        <url-pattern>/name/sort</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>PackageSortByNameZ-A</servlet-name>
+        <servlet-class>com.epam.rd.controllers.Main</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>PackageSortByNameZ-A</servlet-name>
+        <url-pattern>/reverse/name/sort</url-pattern>
+    </servlet-mapping>
+
 </web-app>
