@@ -29,13 +29,11 @@
     <table class="table table-hover">
     <thead>
     <tr>
-        <th>Picture</th>
-        <th>Description</th>
-        <th>Price</th>
-        <th>Selection</th>
-        <c:if test="${keycustomer != null}">
-        <th>Details</th>
-        </c:if>
+        <th><c:if test="${picture == null}"> Picture </c:if> ${picture}</th>
+                <th><c:if test="${description == null}"> Description </c:if> ${description}</th>
+                <th><c:if test="${price == null}"> Price </c:if> ${price}</th>
+        <th><c:if test="${title == null}"> Title </c:if> ${title}</th>
+
     </tr>
     </thead>
     <tbody>
@@ -48,7 +46,7 @@
             <input type="hidden" name="action" value="buy">
             <input type="hidden" name="id" value="${pack.id}">
            <c:if test="${keycustomer != null}">
-               <input type="submit" value="buy" id="submit "/>
+               <input type="submit" value="<c:if test="${buy == null}"> Details </c:if> ${buy}" id="submit "/>
            </c:if>
 </form></td>
             </tr>

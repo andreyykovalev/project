@@ -43,7 +43,10 @@
                             </c:if>
                             <li>
                             <c:if test="${keycustomer != null}">
-                                <a href="<c:url value="/invalidate"/>">Log out</a>
+                                <a href="<c:url value="/main"/>" > <c:if
+                                        test="${myprofile == null}"> My profile </c:if>${myprofile}</a>
+                                <a href="<c:url value="/invalidate"/>"><c:if
+                                        test="${logout == null}"> Log out </c:if>${logout}</a>
                             </c:if>
                             </li>
                         

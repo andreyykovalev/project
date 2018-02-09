@@ -16,16 +16,16 @@
 
 <body style="background-color: #cecaff">
 
-<h4> <c:if test="${welcome == null}"><h4> Welcome </h4>></c:if> ${welcome} ${keycustomer}</h4>
+<h5> <c:if test="${welcome == null}"><h5> Welcome </h5>></c:if> ${welcome} ${keycustomer}</h5>
 
 <div id="wrapper">
     <div id="articles">
     <span id="span_big">
         <div style="border: inherit;min-height: 40px; padding: 5px;">
-            <h6>Sort by:
-    <a style="margin-left: 5px;" href="<c:url value="/price/sort"/>">price</a>
-    <a style="margin-left: 5px;" href="<c:url value="/name/sort"/>">a-z</a>
-    <a style="margin-left: 5px;" href="<c:url value="/reverse/name/sort"/>">z-a</a></h6>
+            <h6><c:if test="${sort_by == null}"> Sort by </c:if> ${sort_by}:
+    <a style="margin-left: 5px;" href="<c:url value="/price/sort"/>"><c:if test="${price == null}"> Price </c:if> ${price}</a>
+    <a style="margin-left: 5px;" href="<c:url value="/name/sort"/>"><c:if test="${sort_format == null}"> a-z </c:if> ${sort_format}</a>
+    <a style="margin-left: 5px;" href="<c:url value="/reverse/name/sort"/>"><c:if test="${sort_format_reversed == null}"> a-z </c:if> ${sort_format_reversed}</a></h6>
 </div>
 
         <table class="table table-hover">
@@ -42,7 +42,7 @@
             <tbody>
             <c:forEach var="product" items="${packages}">
             <tr>
-                <td><img src="<c:out value="${product.image}" />" alt=""> </td>
+                <td><img style="max-height: 90%; max-width: 90%;" src="<c:out value="${product.image}" />" alt=""> </td>
                 <td><c:out value="${product.description}" /></td>
                 <td><c:out value="${product.price}" /></td>
                 <td><c:out value="${product.name}" /></td>

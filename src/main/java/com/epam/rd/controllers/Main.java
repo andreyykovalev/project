@@ -118,6 +118,9 @@ public class Main extends HttpServlet {
         String price = LocaleMessageProvider.getInstance().encode("price");
         request.setAttribute("price", price);
 
+        String myProfile = LocaleMessageProvider.getInstance().encode("myprofile");
+        request.setAttribute("myprofile", myProfile);
+
         String description = LocaleMessageProvider.getInstance().encode("description");
         request.setAttribute("description", description);
 
@@ -130,11 +133,26 @@ public class Main extends HttpServlet {
         String details = LocaleMessageProvider.getInstance().encode("details");
         request.setAttribute("details", details);
 
+        String logout = LocaleMessageProvider.getInstance().encode("logout");
+        request.setAttribute("logout", logout);
+
+        String sortBy = LocaleMessageProvider.getInstance().encode("sort_by");
+        request.setAttribute("sort_by", sortBy);
+
+        String sortFormat = LocaleMessageProvider.getInstance().encode("sort_format");
+        request.setAttribute("sort_format", sortFormat);
+
+        String sortFormatReversed = LocaleMessageProvider.getInstance().encode("sort_format_reversed");
+        request.setAttribute("sort_format_reversed", sortFormatReversed);
+
         String workspace = LocaleMessageProvider.getInstance().encode("mainWorkspace");
         request.setAttribute("workspace", workspace);
 
         String buttonDetails = LocaleMessageProvider.getInstance().encode("button_details");
         request.setAttribute("buttondetails", buttonDetails);
+
+        String currentDate = LocaleMessageProvider.getInstance().encode("currentDate");
+        request.setAttribute("currentdate", currentDate);
     }
 
     private static void invalidateSession(HttpSession session) {

@@ -6,6 +6,7 @@ import com.epam.rd.model.ModelWorkOrder;
 import com.epam.rd.model.entity.EntityCustomer;
 import com.epam.rd.model.entity.EntityPackage;
 import com.epam.rd.model.entity.EntityWorkOrder;
+import com.epam.rd.util.LanguageDefiner;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -19,11 +20,28 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import static com.epam.rd.util.AttributesLocalizer.getLang;
+
 public class Index extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
+        String pageLangRequest = request.getParameter("lang");
+        String pageLanguage;
+
+        if (pageLangRequest == null) {
+            String pageLanguageSession = (String) session.getAttribute("lang");
+            session.setAttribute("lang", pageLanguageSession);
+            LanguageDefiner.definePageLang(pageLanguageSession);
+            pageLanguage = pageLanguageSession;
+        } else {
+            session.setAttribute("lang", pageLangRequest);
+            LanguageDefiner.definePageLang(pageLangRequest);
+            pageLanguage = pageLangRequest;
+        }
+
+        getLang(pageLangRequest,request, session);
         ConnectionPool connectionPool = new ConnectionPool();
         ModelWorkOrder modelWorkOrder = null;
         try {
@@ -31,19 +49,23 @@ public class Index extends HttpServlet {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         String id = request.getParameter("id");
-        session.setAttribute("id", id);
-        String pageLanguage = request.getParameter("lang");
-
-
+        if(id != null) {
+            session.setAttribute("id", id);
+        }
         int langId;
         if (pageLanguage == null || pageLanguage.equals("en")) {
             langId = 1;
         } else langId = 2;
 
+        EntityPackage pack;
         ModelPackage modelPackage = new ModelPackage(langId);
-        EntityPackage pack = modelPackage.loadById((long) Integer.parseInt(id));
+        if(id != null){
+        pack = modelPackage.loadById((long) Integer.parseInt(id));}
+        else {
+            long sessionId =  Long.parseLong((String)session.getAttribute("id"));
+            pack = modelPackage.loadById(sessionId);
+        }
         request.setAttribute("pack", pack);
 
         String message = "";

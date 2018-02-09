@@ -22,6 +22,9 @@ public class AttributesLocalizer {
         String welcomeMessage = LocaleMessageProvider.getInstance().encode("login_welcome");
         request.setAttribute("login_welcome", welcomeMessage);
 
+        String buy = LocaleMessageProvider.getInstance().encode("buy"); // Hey look here
+        request.setAttribute("buy", buy);
+
         String main = LocaleMessageProvider.getInstance().encode("main"); // Hey look here
         request.setAttribute("main", main);
 
@@ -71,7 +74,7 @@ public class AttributesLocalizer {
         request.setAttribute("replenish", replenish);
 
         String balance = LocaleMessageProvider.getInstance().encode("balance");
-        request.setAttribute("lablebalance", balance);
+        request.setAttribute("labelbalance", balance);
 
         String wrongPassword = LocaleMessageProvider.getInstance().encode("wrong_password");
         request.setAttribute("wrongpassword", wrongPassword);
@@ -81,6 +84,9 @@ public class AttributesLocalizer {
 
         String name = LocaleMessageProvider.getInstance().encode("name");
         request.setAttribute("name", name);
+
+        String logout = LocaleMessageProvider.getInstance().encode("logout");
+        request.setAttribute("logout", logout);
 
         String surname = LocaleMessageProvider.getInstance().encode("surname");
         request.setAttribute("surname", surname);
@@ -100,5 +106,13 @@ public class AttributesLocalizer {
         String emptyFields = LocaleMessageProvider.getInstance().encode("empty_fields");
         request.setAttribute("empty_fields", emptyFields);
 
+        String myProfile = LocaleMessageProvider.getInstance().encode("myprofile");
+        request.setAttribute("myprofile", myProfile);
+
+        String mainTitle = LocaleMessageProvider.getInstance().encode("title");
+        request.setAttribute("title", mainTitle);
+
+        String picture = LocaleMessageProvider.getInstance().encode("picture");
+        request.setAttribute("picture", picture);
     }
 }
