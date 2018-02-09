@@ -16,36 +16,16 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
+import static com.epam.rd.util.AttributesLocalizer.getLang;
+
 
 public class Login extends HttpServlet {
-
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
-        String pageLangRequest = request.getParameter("lang");
-
-        if(pageLangRequest == null || pageLangRequest.equals("")) {
-            String pageLanguage = (String) session.getAttribute("lang");
-            session.setAttribute("lang", pageLanguage);
-            LanguageDefiner.definePageLang(pageLanguage);
-            localizePageAttributes(request);
-        } else {
-            session.setAttribute("lang", pageLangRequest);
-            LanguageDefiner.definePageLang(pageLangRequest);
-            localizePageAttributes(request);
-        }
         String url = "/login.jsp";
 
         String action = request.getParameter("action");
-        if(action != null){
-            if(action.equals("login")){
-                RequestDispatcher rd = request.getRequestDispatcher(url);
-                rd.forward(request,response);
-            }
-        }
-
-        if(!action.equals("login")) {
             String email = request.getParameter("email");
             String password = request.getParameter("password");
             EntityCustomer user = new EntityCustomer(email, password);
@@ -78,17 +58,14 @@ public class Login extends HttpServlet {
                         session.setAttribute("keycustomer", user1.getFirstname() + " " + user1.getLastname());
                     }
                 }
-
                 if (!isUserFound) {
                     for (int i = 0; i < users.size(); i++) {
                         String userEmail = users.get(i).getMail();
 
                         if (!userEmail.equals(email)) {
-                            String noSuchEmail = LocaleMessageProvider.getInstance().encode("no_such_email"); // Hey look here
-                            message = noSuchEmail;
-                            url = "/login.jsp";
+                            message = LocaleMessageProvider.getInstance().encode("no_such_email");
+                            url = "/error";
                         }
-
                     }
 
                     for (int i = 0; i < users.size(); i++) {
@@ -96,44 +73,27 @@ public class Login extends HttpServlet {
                         String userPassword = users.get(i).getPassword();
 
                         if (userEmail.equals(email) && !userPassword.equals(password)) {
-                            String wrongPassword = LocaleMessageProvider.getInstance().encode("wrong_password");
-                            message = wrongPassword;
-                            url = "/login.jsp";
+                            message = LocaleMessageProvider.getInstance().encode("wrong_password");
+                            url = "/error";
                         }
                     }
                 }
             }
 
-            request.setAttribute("user", user);
-            request.setAttribute("message", message);
+            session.setAttribute("user", user);
+            session.setAttribute("message", message);
 
             response.sendRedirect(url);
         }
-    }
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        String pageLangRequest = request.getParameter("lang");
 
-    private static void localizePageAttributes(HttpServletRequest request) {
-        String welcomeMessage = LocaleMessageProvider.getInstance().encode("login_welcome");
-        request.setAttribute("login_welcome", welcomeMessage);
+        getLang(pageLangRequest,request, session);
+        String url = "/login.jsp";
 
-        String main = LocaleMessageProvider.getInstance().encode("main"); // Hey look here
-        request.setAttribute("main", main);
-
-        String login = LocaleMessageProvider.getInstance().encode("login");
-        request.setAttribute("login", login);
-
-        String register = LocaleMessageProvider.getInstance().encode("register");
-        request.setAttribute("register", register);
-
-        String settings = LocaleMessageProvider.getInstance().encode("settings");
-        request.setAttribute("settings", settings);
-
-        String currentDate = LocaleMessageProvider.getInstance().encode("currentDate");
-        request.setAttribute("currentdate", currentDate);
-
-        String password = LocaleMessageProvider.getInstance().encode("labelPassword");
-        request.setAttribute("labelpassword", password);
-
-        String email = LocaleMessageProvider.getInstance().encode("labelEmail");
-        request.setAttribute("labelemail", email);
+                RequestDispatcher rd = request.getRequestDispatcher(url);
+                rd.forward(request,response);
     }
 }

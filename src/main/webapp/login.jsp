@@ -16,14 +16,14 @@
 
 <p><i>${message}</i></p>
 <h6><c:if test="${login_welcome == null}">Please, enter your email and password to login</c:if>${login_welcome}</h6>
-<form action="<c:url value="/login"/>" method="get">
+<form action="<c:url value="/login"/>" method="post">
     <input type="hidden" name="action" value="log">
 
     <label><c:if test="${labelemail == null}">Email</c:if>${labelemail}:</label><br>
-    <input type="email" name="email" value="${requestScope['user'].mail}" required><br>
+    <input type="email" name="email" value="${sessionScope['user'].mail}" required> <i><c:if test="${loginemailissue == true}">${nosuchemail}</c:if></i><br>
 
     <label><c:if test="${labelpassword == null}">Password</c:if>${labelpassword}:</label><br>
-    <input type="password" name="password" value="${requestScope['user'].password}" required><br>
+    <input type="password" name="password" value="${sessionScope['user'].password}" required> <c:if test="${loginpasswordissue == true}">${wrongpassword}</c:if><br>
 
     <input type="submit" value="<c:if test="${login == null}">Login</c:if>${login}" id="submit "/>
 

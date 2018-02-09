@@ -20,12 +20,16 @@ import java.util.List;
 
 public class Main extends HttpServlet {
 
-
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        doGet(request, response);
+    }
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String pageLanguage;
         HttpSession session = request.getSession();
         String pageLangRequest = request.getParameter("lang");
+
         if (pageLangRequest == null) {
             String pageLanguageSession = (String) session.getAttribute("lang");
             session.setAttribute("lang", pageLanguageSession);

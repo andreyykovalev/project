@@ -262,4 +262,24 @@
         <url-pattern>/reverse/name/sort</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>ErrorMessage</servlet-name>
+        <servlet-class>com.epam.rd.controllers.ErrorLoginHandler</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>ErrorMessage</servlet-name>
+        <url-pattern>/error</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ErrorRegister</servlet-name>
+        <servlet-class>com.epam.rd.controllers.ErrorRegistrationHandler</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>ErrorRegister</servlet-name>
+        <url-pattern>/issue</url-pattern>
+    </servlet-mapping>
+
 </web-app>

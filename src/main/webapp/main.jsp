@@ -59,7 +59,7 @@
 
                 <h6><a href="/workspace"> <c:if test="${workspace == null}"> My workspace </c:if> ${workspace} </a></h6>
 
-            <img id="img2" src="pictures/cabinet.jpg" alt="Изображение" title="Изображение">
+            <img id="img2" src="<c:url value="/pictures/cabinet.jpg"/>" alt="Изображение" title="Изображение">
 
     </span>
         </c:if>

@@ -16,22 +16,22 @@
 <body style="background-color: #cecaff">
 
 <p><i>${message}</i></p>
-<form action="register" method="get">
+<form action="register" method="post">
     <input type="hidden" name="action" value="add">
 
-    <label>First Name:</label><br>
-    <input type="text" name="firstName" value="${requestScope['customer'].firstName}" required><br>
+    <label><c:if test="${name == null}">First Name</c:if>${name}:</label><br>
+    <input type="text" name="firstName" value="${sessionScope['customer'].firstname}" required><br>
 
-    <label>Last Name:</label><br>
-    <input type="text" name="lastName" value="${requestScope['customer'].lastName}" required><br>
+    <label><c:if test="${surname == null}">Last Name</c:if>${surname}:</label><br>
+    <input type="text" name="lastName" value="${sessionScope['customer'].lastname}" required><br>
 
-    <label>Email:</label><br>
-    <input type="email" name="email" value="${requestScope['customer'].email}" required><br>
+    <label><c:if test="${labelemail == null}">Email</c:if>${labelemail}:</label><br>
+    <input type="email" name="email" value="${sessionScope['customer'].mail}" required><i><c:if test="${registeremailissue == true}">${existsemail}</c:if></i><br>
 
-    <label>Password:</label><br>
-    <input type="password" name="password" value="${requestScope['customer'].password}" required><br>
+    <label><c:if test="${labelpassword == null}">Password</c:if>${labelpassword}:</label><br>
+    <input type="password" name="password" value="${sessionScope['customer'].password}" required><br>
 
-    <input type="submit" value="Join Now" id="submit "/>
+    <input style="margin-top: 5px" type="submit" value="<c:if test="${join == null}">Email</c:if>${join}" id="submit "/>
 </form>
 </body>
 <jsp:include page="/footer.jsp" />

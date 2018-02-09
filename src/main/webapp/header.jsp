@@ -25,11 +25,20 @@
                         <ul class="dropdown-menu">
 
                             <c:if test="${keycustomer == null}">
-                                <li><a href="<c:url value="/login?lang&action=login"/>">
+                                <%
+                                    String lang;
+                                    String requestLang = (String) request.getParameter("lang");
+                                    String sesionLang = (String) session.getAttribute("lang");
+                                    if(requestLang != null){
+                                        lang = requestLang;
+                                    } else if(sesionLang != null){
+                                    }
+                                    else lang = "en"; %>
+                                <li><a href="<c:url value="/login?lang=${lang}"/>">
 
                                     <c:if test="${login == null}"> Login </c:if>${login} </a></li>
 
-                                <li><a href="<c:url value="/register?lang&action=show"/>">
+                                <li><a href="<c:url value="/register?lang=${lang}"/>">
                                     <c:if test="${register == null}"> Sign in </c:if>${register} </a></li>
                             </c:if>
                             <li>
