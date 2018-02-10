@@ -1,12 +1,14 @@
 package com.epam.rd.controllers;
 
-import com.epam.rd.ConnectionPool;
+
+import com.epam.rd.DataBaseUtility;
 import com.epam.rd.model.ModelPackage;
 import com.epam.rd.model.ModelWorkOrder;
 import com.epam.rd.model.entity.EntityCustomer;
 import com.epam.rd.model.entity.EntityPackage;
 import com.epam.rd.model.entity.EntityWorkOrder;
 import com.epam.rd.util.LanguageDefiner;
+import org.apache.commons.dbcp2.BasicDataSource;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -42,10 +44,11 @@ public class Index extends HttpServlet {
         }
 
         getLang(pageLangRequest,request, session);
-        ConnectionPool connectionPool = new ConnectionPool();
+
         ModelWorkOrder modelWorkOrder = null;
+        BasicDataSource dataSource = DataBaseUtility.getDataSource();
         try {
-            modelWorkOrder = new ModelWorkOrder(connectionPool.setUpPool().getConnection());
+            modelWorkOrder = new ModelWorkOrder(dataSource.getConnection());
         } catch (Exception e) {
             e.printStackTrace();
         }

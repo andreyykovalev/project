@@ -1,7 +1,8 @@
 package com.epam.rd.model;
 
-import com.epam.rd.ConnectionPool;
+import com.epam.rd.DataBaseUtility;
 import com.mysql.jdbc.Statement;
+import org.apache.commons.dbcp2.BasicDataSource;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -23,7 +24,8 @@ class Model {
     }
 
     List<Map> query(String sql) {
-        try (Connection connection = new ConnectionPool().setUpPool().getConnection();
+        BasicDataSource dataSource = DataBaseUtility.getDataSource();
+        try (Connection connection = dataSource.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(sql);
              ResultSet resultSet = preparedStatement.executeQuery()) {
 
@@ -48,7 +50,8 @@ class Model {
     }
 
     void update(String sql) {
-        try (Connection connection = new ConnectionPool().setUpPool().getConnection();
+        BasicDataSource dataSource = DataBaseUtility.getDataSource();
+        try (Connection connection = dataSource.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)
         ) {
             preparedStatement.executeUpdate();

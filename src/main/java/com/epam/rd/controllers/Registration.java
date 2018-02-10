@@ -1,10 +1,11 @@
 package com.epam.rd.controllers;
 
-import com.epam.rd.ConnectionPool;
+import com.epam.rd.DataBaseUtility;
 import com.epam.rd.model.ModelCustomer;
 import com.epam.rd.model.entity.EntityCustomer;
 import com.epam.rd.util.LocaleMessageProvider;
 import com.epam.rd.util.PasswordUtil;
+import org.apache.commons.dbcp2.BasicDataSource;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.sql.Connection;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -24,7 +26,6 @@ public class Registration extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
 
-        ConnectionPool connectionPool = new ConnectionPool();
 
         String url = "/register.jsp";
         String action = request.getParameter("action");
@@ -90,8 +91,9 @@ public class Registration extends HttpServlet {
             if (isEverythingFilled && !isEmailExists && isEmailMatches) {
                 message = "";
                 url = "/main";
+                BasicDataSource dataSource = DataBaseUtility.getDataSource();
                 try {
-                    ModelCustomer modelCustomerCreate = new ModelCustomer(connectionPool.setUpPool().getConnection());
+                    ModelCustomer modelCustomerCreate = new ModelCustomer(dataSource.getConnection());
 
                     EntityCustomer customerWithHashedPassword = EntityCustomer.builder()
                             .firstname(firstName)

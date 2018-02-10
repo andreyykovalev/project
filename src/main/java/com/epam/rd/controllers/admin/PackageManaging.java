@@ -1,9 +1,11 @@
 package com.epam.rd.controllers.admin;
 
-import com.epam.rd.ConnectionPool;
+
+import com.epam.rd.DataBaseUtility;
 import com.epam.rd.model.ModelPackage;
 import com.epam.rd.model.entity.EntityPackage;
 import com.epam.rd.model.entity.EntityUser;
+import org.apache.commons.dbcp2.BasicDataSource;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -95,8 +97,8 @@ public class PackageManaging extends HttpServlet {
 
     private void insertPackage(HttpServletRequest request, HttpServletResponse response)
             throws Exception {
-
-        ModelPackage modelPackage = new ModelPackage(new ConnectionPool().setUpPool().getConnection(), 1);
+        BasicDataSource dataSource = DataBaseUtility.getDataSource();
+        ModelPackage modelPackage = new ModelPackage(dataSource.getConnection(), 1);
 
         String name = request.getParameter("name");
         String description = request.getParameter("description");
