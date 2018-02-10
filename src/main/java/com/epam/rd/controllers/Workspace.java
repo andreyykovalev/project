@@ -5,6 +5,7 @@ import com.epam.rd.model.ModelCustomer;
 import com.epam.rd.model.ModelWorkOrder;
 import com.epam.rd.model.entity.EntityCustomer;
 import com.epam.rd.model.entity.EntityWorkOrder;
+import com.epam.rd.util.PackageSortByPrice;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -22,12 +23,12 @@ public class Workspace extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        doGet(request, response);
+        doPost(request, response);
     }
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         HttpSession session = request.getSession();
 
@@ -70,7 +71,7 @@ public class Workspace extends HttpServlet {
         }
         String url = "/workspace.jsp";
         EntityCustomer customer = (EntityCustomer) session.getAttribute("customer");
-        request.setAttribute("balance", customer.getBalance());
+
         String action = request.getParameter("action");
         if (action != null) {
             if (action.equals("replenish")) {
@@ -80,7 +81,7 @@ public class Workspace extends HttpServlet {
                 modelCustomer.update(customer);
             }
         }
-
+        request.setAttribute("balance", customer.getBalance());
         request.setAttribute("listOrders", listOrdersThisCustomer);
         RequestDispatcher dispatcher = request.getRequestDispatcher(url);
 

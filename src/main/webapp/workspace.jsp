@@ -64,7 +64,7 @@
 
     <span id="span_small">
 
-        <form action="replenish" method="get">
+        <form action="/workspace" method="post">
             <input type="hidden" name="action" value="replenish">
 
             <label><c:if test="${amount == null}"> Status </c:if>${amount} :</label><br>
