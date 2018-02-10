@@ -102,7 +102,7 @@ public class Registration extends HttpServlet {
                             .password(PasswordUtil.hashPassword(password))
                             .balance(balance).build();
 
-                    modelCustomerCreate.create(customer);
+                    modelCustomerCreate.create(customerWithHashedPassword);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

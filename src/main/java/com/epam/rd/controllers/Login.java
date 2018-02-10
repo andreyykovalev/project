@@ -6,6 +6,7 @@ import com.epam.rd.model.entity.EntityCustomer;
 
 import com.epam.rd.util.LanguageDefiner;
 import com.epam.rd.util.LocaleMessageProvider;
+import com.epam.rd.util.PasswordUtil;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -42,7 +43,7 @@ public class Login extends HttpServlet {
                     if(users.get(i).getMail() != null && users.get(i).getPassword() != null) {
                         String userEmail = users.get(i).getMail();
                         String userPassword = users.get(i).getPassword();
-                        if (userEmail.equals(email) && userPassword.equals(password)) {
+                        if (userEmail.equals(email) && userPassword.equals(PasswordUtil.hashPassword(password))){
                             message = "";
                             url = "/main";
                             isUserFound = true;
@@ -72,7 +73,7 @@ public class Login extends HttpServlet {
                         String userEmail = users.get(i).getMail();
                         String userPassword = users.get(i).getPassword();
 
-                        if (userEmail.equals(email) && !userPassword.equals(password)) {
+                        if (userEmail.equals(email) && !userPassword.equals(PasswordUtil.hashPassword(password))) {
                             message = LocaleMessageProvider.getInstance().encode("wrong_password");
                             url = "/error";
                         }
