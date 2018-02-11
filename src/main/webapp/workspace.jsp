@@ -69,7 +69,7 @@
 
             <label><c:if test="${amount == null}"> Status </c:if>${amount} :</label><br>
 
-            <input type="number" name="amount" value="" required><br>
+            <input min="1" max="9999" type="number" name="amount" value="" required><br>
 
     <input type="submit" value="<c:if test="${replenish == null}"> Status </c:if>${replenish} " id="submit "/>
 </form>

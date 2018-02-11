@@ -33,10 +33,10 @@ public class Registration extends HttpServlet {
 
         if (action.equals("add")) {
 
-            String firstName= new String(request.getParameter("firstName").getBytes("ISO-8859-1"),"utf-8");
-            String lastName = request.getParameter("lastName");
-            String email = request.getParameter("email");
-            String password = request.getParameter("password");
+            String firstName = new String(request.getParameter("firstName").getBytes("ISO-8859-1"),"utf-8");
+            String lastName = new String(request.getParameter("lastName").getBytes("ISO-8859-1"),"utf-8");
+            String email = new String(request.getParameter("email").getBytes("ISO-8859-1"),"utf-8");
+            String password= new String(request.getParameter("password").getBytes("ISO-8859-1"),"utf-8");
             double balance = 0.0;
 
             EntityCustomer customer = EntityCustomer.builder()
@@ -59,6 +59,16 @@ public class Registration extends HttpServlet {
             Matcher matcher = pattern.matcher(email);
             if (!matcher.find()) {
                 message = LocaleMessageProvider.getInstance().encode("wrong_email_format");
+                url = "/issue";
+                isEmailMatches = false;
+            }
+
+
+            Pattern pattern3 = Pattern.compile("^[а-яА-Я]{30}|[a-zA-Z]{30}$", Pattern.CASE_INSENSITIVE);
+            Matcher matcher3 = pattern3.matcher(firstName);
+            Matcher matcher4 = pattern3.matcher(lastName);
+            if (!matcher3.find() || !matcher4.find()) {
+                message = LocaleMessageProvider.getInstance().encode("name_issue");
                 url = "/issue";
                 isEmailMatches = false;
             }

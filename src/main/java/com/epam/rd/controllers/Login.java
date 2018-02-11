@@ -4,7 +4,6 @@ package com.epam.rd.controllers;
 import com.epam.rd.model.ModelCustomer;
 import com.epam.rd.model.entity.EntityCustomer;
 
-import com.epam.rd.util.LanguageDefiner;
 import com.epam.rd.util.LocaleMessageProvider;
 import com.epam.rd.util.PasswordUtil;
 
@@ -26,9 +25,9 @@ public class Login extends HttpServlet {
         HttpSession session = request.getSession();
         String url = "/login.jsp";
 
-        String action = request.getParameter("action");
             String email = request.getParameter("email");
-            String password = request.getParameter("password");
+            String password = new String(request.getParameter("password").getBytes("ISO-8859-1"),"utf-8");
+
             EntityCustomer user = new EntityCustomer(email, password);
             String message = "";
 

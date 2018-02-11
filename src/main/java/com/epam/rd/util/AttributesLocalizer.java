@@ -22,10 +22,10 @@ public class AttributesLocalizer {
         String welcomeMessage = LocaleMessageProvider.getInstance().encode("login_welcome");
         request.setAttribute("login_welcome", welcomeMessage);
 
-        String buy = LocaleMessageProvider.getInstance().encode("buy"); // Hey look here
+        String buy = LocaleMessageProvider.getInstance().encode("buy");
         request.setAttribute("buy", buy);
 
-        String main = LocaleMessageProvider.getInstance().encode("main"); // Hey look here
+        String main = LocaleMessageProvider.getInstance().encode("main");
         request.setAttribute("main", main);
 
         String login = LocaleMessageProvider.getInstance().encode("login");
@@ -114,5 +114,8 @@ public class AttributesLocalizer {
 
         String picture = LocaleMessageProvider.getInstance().encode("picture");
         request.setAttribute("picture", picture);
+
+        String nameIssue = LocaleMessageProvider.getInstance().encode("name_issue");
+        request.setAttribute("name_issue", nameIssue);
     }
 }

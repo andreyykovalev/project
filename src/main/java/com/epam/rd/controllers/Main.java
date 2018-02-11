@@ -55,8 +55,7 @@ public class Main extends HttpServlet {
 
         ModelPackage factory = new ModelPackage(langId);
         List packages = factory.load();
-        //    EntityPackage pack = factory.load((long)13);
-        //     request.setAttribute("pack", pack);
+
 
         String path = request.getServletPath();
 

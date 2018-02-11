@@ -100,9 +100,9 @@ public class PackageManaging extends HttpServlet {
         BasicDataSource dataSource = DataBaseUtility.getDataSource();
         ModelPackage modelPackage = new ModelPackage(dataSource.getConnection(), 1);
 
-        String name = request.getParameter("name");
-        String description = request.getParameter("description");
-        String image = request.getParameter("image");
+        String name = new String(request.getParameter("name").getBytes("ISO-8859-1"),"utf-8");
+        String description = new String(request.getParameter("description").getBytes("ISO-8859-1"),"utf-8");
+        String image= new String(request.getParameter("image").getBytes("ISO-8859-1"),"utf-8");
         Integer type = Integer.parseInt(request.getParameter("type"));
         Integer languageId = Integer.parseInt(request.getParameter("langId"));
         double price = Double.parseDouble(request.getParameter("price"));
@@ -125,14 +125,14 @@ public class PackageManaging extends HttpServlet {
         ModelPackage modelPackage = new ModelPackage(1);
 
         long id = Integer.parseInt(request.getParameter("id"));
-        String name = request.getParameter("name");
-        String description = request.getParameter("description");
-        String image = request.getParameter("image");
+        String name = new String(request.getParameter("name").getBytes("ISO-8859-1"),"utf-8");
+        String description = new String(request.getParameter("description").getBytes("ISO-8859-1"),"utf-8");
+        String image= new String(request.getParameter("image").getBytes("ISO-8859-1"),"utf-8");
         Integer type = Integer.parseInt(request.getParameter("type"));
         Integer languageId = Integer.parseInt(request.getParameter("langId"));
         double price = Double.parseDouble(request.getParameter("price"));
 
-        EntityPackage newPackege = EntityPackage.builder()
+        EntityPackage newPackage = EntityPackage.builder()
                 .id(id)
                 .name(name)
                 .description(description)
@@ -141,7 +141,7 @@ public class PackageManaging extends HttpServlet {
                 .languageId(languageId)
                 .price(price).build();
 
-        modelPackage.update(newPackege);
+        modelPackage.update(newPackage);
         response.sendRedirect("list");
     }
 

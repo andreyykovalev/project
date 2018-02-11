@@ -27,7 +27,7 @@ public class Registration extends HttpServlet {
         } else if (action.equals("add")) {
 
             String email = request.getParameter("email");
-            String password = request.getParameter("password");
+            String password= new String(request.getParameter("password").getBytes("ISO-8859-1"),"utf-8");
             Integer level = Integer.parseInt(request.getParameter("level"));
 
             EntityUser customer = EntityUser.builder()
