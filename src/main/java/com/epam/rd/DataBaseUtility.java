@@ -14,7 +14,7 @@ public class DataBaseUtility
 				if (dataSource == null)
 				{
 						BasicDataSource ds = new BasicDataSource();
-						ds.setUrl("jdbc:mysql://localhost:3307/epm?useUnicode=true&characterEncoding=utf-8");
+						ds.setUrl("jdbc:mysql://localhost:3307/epm?useUnicode=true&amp;characterEncoding=utf8");
 						ds.setUsername("root");
 						ds.setPassword("wanted0813");
 						ds.setMinIdle(5);

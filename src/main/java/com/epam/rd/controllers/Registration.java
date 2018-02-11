@@ -27,12 +27,13 @@ public class Registration extends HttpServlet {
         HttpSession session = request.getSession();
 
 
+
         String url = "/register.jsp";
         String action = request.getParameter("action");
 
         if (action.equals("add")) {
 
-            String firstName = request.getParameter("firstName");
+            String firstName= new String(request.getParameter("firstName").getBytes("ISO-8859-1"),"utf-8");
             String lastName = request.getParameter("lastName");
             String email = request.getParameter("email");
             String password = request.getParameter("password");
@@ -94,6 +95,7 @@ public class Registration extends HttpServlet {
                 BasicDataSource dataSource = DataBaseUtility.getDataSource();
                 try {
                     ModelCustomer modelCustomerCreate = new ModelCustomer(dataSource.getConnection());
+
 
                     EntityCustomer customerWithHashedPassword = EntityCustomer.builder()
                             .firstname(firstName)

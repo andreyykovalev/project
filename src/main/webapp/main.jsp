@@ -25,7 +25,8 @@
             <h6><c:if test="${sort_by == null}"> Sort by </c:if> ${sort_by}:
     <a style="margin-left: 5px;" href="<c:url value="/price/sort"/>"><c:if test="${price == null}"> Price </c:if> ${price}</a>
     <a style="margin-left: 5px;" href="<c:url value="/name/sort"/>"><c:if test="${sort_format == null}"> a-z </c:if> ${sort_format}</a>
-    <a style="margin-left: 5px;" href="<c:url value="/reverse/name/sort"/>"><c:if test="${sort_format_reversed == null}"> a-z </c:if> ${sort_format_reversed}</a></h6>
+    <a style="margin-left: 5px;" href="<c:url value="/reverse/name/sort"/>"><c:if test="${sort_format_reversed == null}"> a-z </c:if> ${sort_format_reversed}</a>
+                <a style="margin-left: 5px; float: right" href="<c:url value="/DownloadServlet"/>"><c:if test="${download == null}"> Download info about packages </c:if> ${download}</a></h6>
 </div>
 
         <table class="table table-hover">

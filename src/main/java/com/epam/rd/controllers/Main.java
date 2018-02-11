@@ -153,6 +153,9 @@ public class Main extends HttpServlet {
 
         String currentDate = LocaleMessageProvider.getInstance().encode("currentDate");
         request.setAttribute("currentdate", currentDate);
+
+        String download = LocaleMessageProvider.getInstance().encode("download");
+        request.setAttribute("download", download);
     }
 
     private static void invalidateSession(HttpSession session) {
