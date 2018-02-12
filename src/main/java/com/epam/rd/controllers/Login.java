@@ -6,6 +6,7 @@ import com.epam.rd.model.entity.EntityCustomer;
 
 import com.epam.rd.util.LocaleMessageProvider;
 import com.epam.rd.util.PasswordUtil;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -20,6 +21,7 @@ import static com.epam.rd.util.AttributesLocalizer.getLang;
 
 
 public class Login extends HttpServlet {
+    protected static final org.slf4j.Logger logger =  LoggerFactory.getLogger(Login.class);
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
@@ -46,6 +48,7 @@ public class Login extends HttpServlet {
                         message = "";
                         url = "/main";
                         isUserFound = true;
+                        logger.info(users.get(i).getFirstname() + " " + users.get(i).getLastname()+ " has been logged in");
                     }
                 }
             }
