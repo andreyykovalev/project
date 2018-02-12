@@ -24,6 +24,7 @@ public class Main extends HttpServlet {
             throws ServletException, IOException {
         doGet(request, response);
     }
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String pageLanguage;
@@ -62,16 +63,14 @@ public class Main extends HttpServlet {
         if (path.equals("/price/sort")) {
             PackageSortByPrice epcomp = new PackageSortByPrice();
             packages.sort(epcomp);
-        }
-        else if (path.equals("/name/sort")) {
+        } else if (path.equals("/name/sort")) {
             PackageSortByName epcomp = new PackageSortByName();
             packages.sort(epcomp);
-        } else if(path.equals("/reverse/name/sort")) {
+        } else if (path.equals("/reverse/name/sort")) {
             PackageSortByName epcomp = new PackageSortByName();
             packages.sort(epcomp);
             Collections.reverse(packages);
         }
-
 
 
         request.setAttribute("packages", packages);

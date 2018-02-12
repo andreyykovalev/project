@@ -27,16 +27,15 @@ public class Registration extends HttpServlet {
         HttpSession session = request.getSession();
 
 
-
         String url = "/register.jsp";
         String action = request.getParameter("action");
 
         if (action.equals("add")) {
 
-            String firstName = new String(request.getParameter("firstName").getBytes("ISO-8859-1"),"utf-8");
-            String lastName = new String(request.getParameter("lastName").getBytes("ISO-8859-1"),"utf-8");
-            String email = new String(request.getParameter("email").getBytes("ISO-8859-1"),"utf-8");
-            String password= new String(request.getParameter("password").getBytes("ISO-8859-1"),"utf-8");
+            String firstName = new String(request.getParameter("firstName").getBytes("ISO-8859-1"), "utf-8");
+            String lastName = new String(request.getParameter("lastName").getBytes("ISO-8859-1"), "utf-8");
+            String email = new String(request.getParameter("email").getBytes("ISO-8859-1"), "utf-8");
+            String password = new String(request.getParameter("password").getBytes("ISO-8859-1"), "utf-8");
             double balance = 0.0;
 
             EntityCustomer customer = EntityCustomer.builder()

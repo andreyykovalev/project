@@ -5,8 +5,8 @@ import javax.servlet.http.HttpSession;
 
 public class AttributesLocalizer {
 
-    public static void getLang(String pageLangRequest, HttpServletRequest request, HttpSession session){
-        if(pageLangRequest == null || pageLangRequest.equals("")) {
+    public static void getLang(String pageLangRequest, HttpServletRequest request, HttpSession session) {
+        if (pageLangRequest == null || pageLangRequest.equals("")) {
             String pageLanguage = (String) session.getAttribute("lang");
             session.setAttribute("lang", pageLanguage);
             LanguageDefiner.definePageLang(pageLanguage);

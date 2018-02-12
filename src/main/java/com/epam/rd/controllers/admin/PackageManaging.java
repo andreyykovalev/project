@@ -100,9 +100,9 @@ public class PackageManaging extends HttpServlet {
         BasicDataSource dataSource = DataBaseUtility.getDataSource();
         ModelPackage modelPackage = new ModelPackage(dataSource.getConnection(), 1);
 
-        String name = new String(request.getParameter("name").getBytes("ISO-8859-1"),"utf-8");
-        String description = new String(request.getParameter("description").getBytes("ISO-8859-1"),"utf-8");
-        String image= new String(request.getParameter("image").getBytes("ISO-8859-1"),"utf-8");
+        String name = new String(request.getParameter("name").getBytes("ISO-8859-1"), "utf-8");
+        String description = new String(request.getParameter("description").getBytes("ISO-8859-1"), "utf-8");
+        String image = new String(request.getParameter("image").getBytes("ISO-8859-1"), "utf-8");
         Integer type = Integer.parseInt(request.getParameter("type"));
         Integer languageId = Integer.parseInt(request.getParameter("langId"));
         double price = Double.parseDouble(request.getParameter("price"));
@@ -125,9 +125,9 @@ public class PackageManaging extends HttpServlet {
         ModelPackage modelPackage = new ModelPackage(1);
 
         long id = Integer.parseInt(request.getParameter("id"));
-        String name = new String(request.getParameter("name").getBytes("ISO-8859-1"),"utf-8");
-        String description = new String(request.getParameter("description").getBytes("ISO-8859-1"),"utf-8");
-        String image= new String(request.getParameter("image").getBytes("ISO-8859-1"),"utf-8");
+        String name = new String(request.getParameter("name").getBytes("ISO-8859-1"), "utf-8");
+        String description = new String(request.getParameter("description").getBytes("ISO-8859-1"), "utf-8");
+        String image = new String(request.getParameter("image").getBytes("ISO-8859-1"), "utf-8");
         Integer type = Integer.parseInt(request.getParameter("type"));
         Integer languageId = Integer.parseInt(request.getParameter("langId"));
         double price = Double.parseDouble(request.getParameter("price"));

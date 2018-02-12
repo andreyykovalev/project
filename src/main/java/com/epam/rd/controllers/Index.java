@@ -43,7 +43,7 @@ public class Index extends HttpServlet {
             pageLanguage = pageLangRequest;
         }
 
-        getLang(pageLangRequest,request, session);
+        getLang(pageLangRequest, request, session);
 
         ModelWorkOrder modelWorkOrder = null;
         BasicDataSource dataSource = DataBaseUtility.getDataSource();
@@ -53,7 +53,7 @@ public class Index extends HttpServlet {
             e.printStackTrace();
         }
         String id = request.getParameter("id");
-        if(id != null) {
+        if (id != null) {
             session.setAttribute("id", id);
         }
         int langId;
@@ -63,10 +63,10 @@ public class Index extends HttpServlet {
 
         EntityPackage pack;
         ModelPackage modelPackage = new ModelPackage(langId);
-        if(id != null){
-        pack = modelPackage.loadById((long) Integer.parseInt(id));}
-        else {
-            long sessionId =  Long.parseLong((String)session.getAttribute("id"));
+        if (id != null) {
+            pack = modelPackage.loadById((long) Integer.parseInt(id));
+        } else {
+            long sessionId = Long.parseLong((String) session.getAttribute("id"));
             pack = modelPackage.loadById(sessionId);
         }
         request.setAttribute("pack", pack);

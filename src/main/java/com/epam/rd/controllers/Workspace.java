@@ -33,7 +33,7 @@ public class Workspace extends HttpServlet {
         HttpSession session = request.getSession();
 
         String pageLangRequest = request.getParameter("lang");
-        getLang(pageLangRequest,request, session);
+        getLang(pageLangRequest, request, session);
 
 
         EntityCustomer customer = (EntityCustomer) session.getAttribute("customer");
@@ -44,17 +44,17 @@ public class Workspace extends HttpServlet {
                 String action = request.getServletPath();
                 switch (action) {
                     case "/sort":
-                 //       updatePackage(request, response);
+                        //       updatePackage(request, response);
                         break;
                     default:
                         listProduct(request, response);
                         break;
                 }
-            } catch(Exception ex){
-                    throw new ServletException(ex);
-                }
+            } catch (Exception ex) {
+                throw new ServletException(ex);
             }
         }
+    }
 
     private void listProduct(HttpServletRequest request, HttpServletResponse response)
             throws Exception {

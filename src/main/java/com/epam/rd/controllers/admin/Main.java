@@ -17,7 +17,7 @@ public class Main extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String pageLanguage ;
+        String pageLanguage;
         HttpSession session = request.getSession();
         String sessionPageLang = (String) session.getAttribute("lang");
 

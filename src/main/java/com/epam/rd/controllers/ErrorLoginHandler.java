@@ -11,16 +11,16 @@ import java.io.IOException;
 import static com.epam.rd.util.AttributesLocalizer.getLang;
 
 
-public class ErrorLoginHandler extends HttpServlet{
+public class ErrorLoginHandler extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
         String pageLangRequest = request.getParameter("lang");
 
-        getLang(pageLangRequest,request, session);
+        getLang(pageLangRequest, request, session);
 
         RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
-        rd.forward(request,response);
+        rd.forward(request, response);
         session.removeAttribute("user");
         session.removeAttribute("message");
     }
