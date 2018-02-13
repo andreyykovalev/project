@@ -9,6 +9,8 @@ import com.epam.rd.model.entity.EntityPackage;
 import com.epam.rd.model.entity.EntityWorkOrder;
 import com.epam.rd.util.LanguageDefiner;
 import org.apache.commons.dbcp2.BasicDataSource;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -25,6 +27,7 @@ import java.util.List;
 import static com.epam.rd.util.AttributesLocalizer.getLang;
 
 public class Index extends HttpServlet {
+    protected static final Logger logger = LoggerFactory.getLogger(Index.class);
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -63,8 +66,10 @@ public class Index extends HttpServlet {
 
         EntityPackage pack;
         ModelPackage modelPackage = new ModelPackage(langId);
+
         if (id != null) {
             pack = modelPackage.loadById((long) Integer.parseInt(id));
+            logger.info("Showing a page with desired package");
         } else {
             long sessionId = Long.parseLong((String) session.getAttribute("id"));
             pack = modelPackage.loadById(sessionId);
@@ -92,28 +97,28 @@ public class Index extends HttpServlet {
                         listOrders.add(o);
                     }
                 });
-//                for (EntityWorkOrder workOrder : listOrders) {
-//                    if (workOrder.getCustomer().getId() != customer.getId()) {
-//                        listOrders.remove(workOrder);
-//                    }
-//                }
+
                 boolean IsOrderValid = true;
                 for (EntityWorkOrder workOrderThisCust : listOrders) {
                     if (workOrderThisCust.getPackages().getType() == pack.getType()) {
                         message = "You've already got the service of this type";
                         IsOrderValid = false;
+                        logger.info("Purchase failure. Order already exists");
                     }
                 }
 
                 for (EntityWorkOrder workOrderThisCust : listOrders) {
                     if (workOrderThisCust.getCustomer().getBalance() < pack.getPrice()) {
-                        message = "Are you crazy? Did you see the price?";
+                        message = "You don't have enough money on your balance";
                         IsOrderValid = false;
+                        logger.info("Purchase failure. Not enough money");
                     }
                 }
                 if (IsOrderValid) {
                     modelWorkOrder.create(order);
                     url = "/workspace";
+                    logger.info("Purchase success");
+
                 }
             }
         }

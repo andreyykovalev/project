@@ -6,6 +6,8 @@ import com.epam.rd.util.PackageSortByName;
 import com.epam.rd.util.PackageSortByPrice;
 import com.epam.rd.util.LanguageDefiner;
 import com.epam.rd.util.LocaleMessageProvider;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -19,6 +21,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class Main extends HttpServlet {
+    protected static final Logger logger = LoggerFactory.getLogger(Main.class);
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -56,7 +59,7 @@ public class Main extends HttpServlet {
 
         ModelPackage factory = new ModelPackage(langId);
         List packages = factory.load();
-
+        logger.info("Showing a list of all available packages");
 
         String path = request.getServletPath();
 

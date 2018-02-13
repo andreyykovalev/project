@@ -24,7 +24,6 @@ public class LogFilter implements Filter {
                          FilterChain chain) throws IOException, ServletException {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         HttpServletResponse httpResponse = (HttpServletResponse) response;
-        ServletContext sc = config.getServletContext();
         String filterName = config.getFilterName();
         String servletPath = "Servlet path: " + httpRequest.getServletPath();
 

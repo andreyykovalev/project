@@ -50,7 +50,7 @@ public class Login extends HttpServlet {
                         message = "";
                         url = "/main";
                         isUserFound = true;
-                        logger.info(users.get(i).getFirstname() + " " + users.get(i).getLastname() + " has been logged in");
+                        logger.info(users.get(i).getFirstname() + " " + users.get(i).getLastname() + " logged in");
                     }
                 }
             }
@@ -64,6 +64,9 @@ public class Login extends HttpServlet {
                 }
             }
             if (!isUserFound) {
+
+                logger.info("Login error due to wrong input data");
+
                 for (int i = 0; i < users.size(); i++) {
                     String userEmail = users.get(i).getMail();
 

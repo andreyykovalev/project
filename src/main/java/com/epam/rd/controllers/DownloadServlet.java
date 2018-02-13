@@ -1,5 +1,7 @@
 package com.epam.rd.controllers;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -13,9 +15,12 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 
 public class DownloadServlet extends HttpServlet {
+    protected static final Logger logger = LoggerFactory.getLogger(DownloadServlet.class);
 
     public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
+        logger.info("Download request");
 
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();

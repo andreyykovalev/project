@@ -6,6 +6,8 @@ import com.epam.rd.model.entity.EntityCustomer;
 import com.epam.rd.util.LocaleMessageProvider;
 import com.epam.rd.util.PasswordUtil;
 import org.apache.commons.dbcp2.BasicDataSource;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -14,7 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.sql.Connection;
+
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -22,8 +24,11 @@ import java.util.regex.Pattern;
 import static com.epam.rd.util.AttributesLocalizer.getLang;
 
 public class Registration extends HttpServlet {
+    protected static final Logger logger = LoggerFactory.getLogger(Registration.class);
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
         HttpSession session = request.getSession();
 
 
@@ -60,6 +65,7 @@ public class Registration extends HttpServlet {
                 message = LocaleMessageProvider.getInstance().encode("wrong_email_format");
                 url = "/issue";
                 isEmailMatches = false;
+                logger.info("Registration error. Input data for customer email doesn't match required pattern");
             }
 
 
@@ -70,6 +76,7 @@ public class Registration extends HttpServlet {
                 message = LocaleMessageProvider.getInstance().encode("name_issue");
                 url = "/issue";
                 isEmailMatches = false;
+                logger.info("Registration error. Input data for customer name doesn't match required pattern");
             }
 
             Pattern pattern2 = Pattern.compile(".{8,}", Pattern.CASE_INSENSITIVE);
@@ -78,6 +85,7 @@ public class Registration extends HttpServlet {
                 message = LocaleMessageProvider.getInstance().encode("password_too_short");
                 url = "/issue";
                 isEmailMatches = false;
+                logger.info("Registration error. An attempt to create an account with too short password");
             }
 
 
@@ -87,6 +95,7 @@ public class Registration extends HttpServlet {
                     message = LocaleMessageProvider.getInstance().encode("email_already_exists");
                     url = "/issue";
                     isEmailExists = true;
+                    logger.info("Registration error. An attempt to create an account with existing email");
                 }
             }
 
@@ -95,10 +104,14 @@ public class Registration extends HttpServlet {
                 message = LocaleMessageProvider.getInstance().encode("empty_fields");
                 url = "/issue";
                 isEverythingFilled = false;
+                logger.info("Registration error. One of the input fields is empty");
             }
 
 
             if (isEverythingFilled && !isEmailExists && isEmailMatches) {
+
+                logger.info("Creating a new customer in the database");
+
                 message = "";
                 url = "/main";
                 BasicDataSource dataSource = DataBaseUtility.getDataSource();
@@ -114,6 +127,8 @@ public class Registration extends HttpServlet {
                             .balance(balance).build();
 
                     modelCustomerCreate.create(customerWithHashedPassword);
+
+                    logger.info("New customer " + customerWithHashedPassword.getFirstname() + " " + customerWithHashedPassword.getLastname() + " is created");
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

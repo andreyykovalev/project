@@ -6,6 +6,8 @@ import com.epam.rd.model.ModelWorkOrder;
 import com.epam.rd.model.entity.EntityCustomer;
 import com.epam.rd.model.entity.EntityWorkOrder;
 import com.epam.rd.util.PackageSortByPrice;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -20,6 +22,7 @@ import java.util.List;
 import static com.epam.rd.util.AttributesLocalizer.getLang;
 
 public class Workspace extends HttpServlet {
+    protected static final Logger logger = LoggerFactory.getLogger(Workspace.class);
     private static final long serialVersionUID = 1L;
 
 
@@ -43,11 +46,9 @@ public class Workspace extends HttpServlet {
             try {
                 String action = request.getServletPath();
                 switch (action) {
-                    case "/sort":
-                        //       updatePackage(request, response);
-                        break;
                     default:
                         listProduct(request, response);
+                        logger.info("Showing a list of customer's packages");
                         break;
                 }
             } catch (Exception ex) {
@@ -79,6 +80,7 @@ public class Workspace extends HttpServlet {
                 customer.setBalance(customer.getBalance() + amount);
                 ModelCustomer modelCustomer = new ModelCustomer();
                 modelCustomer.update(customer);
+                logger.info("Adding " + amount + " to " + customer.getLastname() + "'s account");
             }
         }
         request.setAttribute("balance", customer.getBalance());

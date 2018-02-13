@@ -3,6 +3,8 @@ package com.epam.rd.controllers;
 
 import com.epam.rd.util.LanguageDefiner;
 import com.epam.rd.util.LocaleMessageProvider;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 import javax.servlet.ServletException;
@@ -14,7 +16,7 @@ import java.io.IOException;
 
 
 public class SessionInvalidation extends HttpServlet {
-
+    protected static final Logger logger = LoggerFactory.getLogger(SessionInvalidation.class);
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -35,6 +37,7 @@ public class SessionInvalidation extends HttpServlet {
         }
 
         session.invalidate();
+        logger.info("Current session is terminated");
         HttpSession session2 = request.getSession();
         session2.setAttribute("lang", pageLanguage);
 
@@ -43,7 +46,7 @@ public class SessionInvalidation extends HttpServlet {
     }
 
     private static void localizePageAttributes(HttpServletRequest request) {
-        String main = LocaleMessageProvider.getInstance().encode("main"); // Hey look here
+        String main = LocaleMessageProvider.getInstance().encode("main");
         request.setAttribute("main", main);
 
         String login = LocaleMessageProvider.getInstance().encode("login");
