@@ -12,6 +12,10 @@
         <welcome-file>main</welcome-file>
     </welcome-file-list>
 
+    <listener>
+        <listener-class>com.epam.rd.controllers.listeners.SessionCounterListener</listener-class>
+    </listener>
+
     <filter>
         <filter-name>LogFilter</filter-name>
         <filter-class>com.epam.rd.controllers.filters.LogFilter</filter-class>

@@ -1,7 +1,5 @@
 package com.epam.rd.controllers;
 
-
-import com.epam.rd.util.LanguageDefiner;
 import com.epam.rd.util.LocaleMessageProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,6 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+
+import static com.epam.rd.util.LanguageDefiner.*;
 
 
 public class SessionInvalidation extends HttpServlet {
@@ -26,12 +26,12 @@ public class SessionInvalidation extends HttpServlet {
         if (pageLangRequest == null) {
             String pageLanguageSession = (String) session.getAttribute("lang");
             session.setAttribute("lang", pageLanguageSession);
-            LanguageDefiner.definePageLang(pageLanguageSession);
+            definePageLang(pageLanguageSession);
             localizePageAttributes(request);
             pageLanguage = pageLanguageSession;
         } else {
             session.setAttribute("lang", pageLangRequest);
-            LanguageDefiner.definePageLang(pageLangRequest);
+            definePageLang(pageLangRequest);
             localizePageAttributes(request);
             pageLanguage = pageLangRequest;
         }
