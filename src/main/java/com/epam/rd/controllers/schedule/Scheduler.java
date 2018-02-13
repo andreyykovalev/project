@@ -8,6 +8,7 @@ import org.apache.logging.log4j.Logger;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
@@ -16,16 +17,16 @@ public class Scheduler {
 
     private static final Logger logger = LogManager.getLogger(Scheduler.class);
 
-    private ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(30);
+        private ScheduledExecutorService executorService = Executors.newScheduledThreadPool(30);
 
     public void addTasks() {
         logger.error("PLANNING SCHEDULE");
         ModelWorkOrder wo = new ModelWorkOrder();
         List<EntityWorkOrder> list = wo.load(1);
 
-        list.forEach((EntityWorkOrder e) -> scheduler.schedule(() -> wo.delete(e.getId()),
-                e.getDateEnd().getTime() - new Date().getTime(), TimeUnit.MILLISECONDS));
-        scheduler.shutdown();
+
+        list.forEach((EntityWorkOrder e) -> executorService.scheduleAtFixedRate(() -> wo.delete(e.getId()),
+                e.getDateEnd().getTime() - new Date().getTime(), 2592000000L , TimeUnit.MILLISECONDS));
     }
 
 }
