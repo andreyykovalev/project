@@ -33,6 +33,8 @@
         <a style="margin-left: 5px;" href="<c:url value="/admin/new"/>">Add new package</a>
         <a style="margin-left: 15px;" href="<c:url value="/orders/main"/>">List of orders</a>
         <a style="margin-left: 15px;" href="<c:url value="/customer/main"/>">List of customers</a>
+<c:if test="${admin.level == 2}"><a style="margin-left: 15px;" href="<c:url value="/admin/register?&action=show"/>">
+            Add new admin </a></c:if>
     </h5>
 <div style="float:left">
 

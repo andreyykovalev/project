@@ -45,7 +45,7 @@ public class Main extends HttpServlet {
         String url;
         RequestDispatcher rd;
 
-        url = "/main.jsp";
+        url = "admin/main.jsp";
 
         String action;
         action = request.getParameter("action");

@@ -28,17 +28,14 @@
 
 
 
-                            <c:if test="${emailSes == null}">
+                            <c:if test="${admin == null}">
                                 <li><a href="<c:url value="/admin/login"/>">
 
                                     <c:if test="${login == null}"> Login </c:if>${login} </a></li>
-
-                                <li><a href="<c:url value="/admin/register?&action=show"/>">
-                                    <c:if test="${register == null}"> Sign in </c:if>${register} </a></li>
                             </c:if>
                             <li>
-                            <c:if test="${emailSes != null}">
-                                <a href="<c:url value="/main?action=invalidate"/>">Log out</a>
+                            <c:if test="${admin != null}">
+                                <a href="<c:url value="/SessionInvalidation"/>">Log out</a>
                             </c:if>
                         </ul>
                     </li>
