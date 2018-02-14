@@ -81,5 +81,9 @@ public class SessionInvalidation extends HttpServlet {
 
         String buttonDetails = LocaleMessageProvider.getInstance().encode("button_details");
         request.setAttribute("buttondetails", buttonDetails);
+
+        String support = LocaleMessageProvider.getInstance().encode("support");
+        request.setAttribute("support", support);
+
     }
 }

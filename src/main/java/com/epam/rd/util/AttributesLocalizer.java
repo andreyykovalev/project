@@ -117,5 +117,8 @@ public class AttributesLocalizer {
 
         String nameIssue = LocaleMessageProvider.getInstance().encode("name_issue");
         request.setAttribute("name_issue", nameIssue);
+
+        String support = LocaleMessageProvider.getInstance().encode("support");
+        request.setAttribute("support", support);
     }
 }

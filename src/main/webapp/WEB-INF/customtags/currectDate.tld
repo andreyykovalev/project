@@ -8,9 +8,20 @@
     <uri>http://tomcat.apache.org/jsp2-example-taglib</uri>
 
     <tag>
-        <name>hello</name>
+        <name>date</name>
         <tag-class>com.epam.rd.tags.CurrentDateTag</tag-class>
         <body-content>empty</body-content>
+        <attribute>
+            <name>name</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+    </tag>
+
+    <tag>
+        <name>ifWeekday</name>
+        <tag-class>com.epam.rd.tags.IfWeekdayTag</tag-class>
+        <body-content>JSP</body-content>
         <attribute>
             <name>name</name>
             <required>false</required>

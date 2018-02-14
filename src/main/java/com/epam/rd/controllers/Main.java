@@ -157,6 +157,9 @@ public class Main extends HttpServlet {
 
         String download = LocaleMessageProvider.getInstance().encode("download");
         request.setAttribute("download", download);
+
+        String support = LocaleMessageProvider.getInstance().encode("support");
+        request.setAttribute("support", support);
     }
 
     private static void invalidateSession(HttpSession session) {
