@@ -2,6 +2,7 @@
 <%@ page language="java" session="true" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib tagdir="/WEB-INF/tags" prefix="tf" %>
 
 <%
     EntityUser admin=(EntityUser)session.getAttribute("admin");
@@ -26,6 +27,7 @@
 <jsp:include page="/admin/HeaderAdmin.jsp" />
 
 <body>
+<h5>Current date: <tf:tagfile/> </h5>
     <h1 style="margin-left: 10px">Packages</h1>
     <h5 style="margin-left: 10px;">
         <a style="margin-left: 5px;" href="<c:url value="/admin/new"/>">Add new package</a>
@@ -102,5 +104,6 @@
 
 </div>
 </body>
+
 </html>
 <% } %>

@@ -41,7 +41,6 @@
                 <th><c:if test="${picture == null}"> Last Name </c:if> ${picture}</th>
                 <th><c:if test="${description == null}"> Balance </c:if> ${description}</th>
                 <th><c:if test="${price == null}"> Email </c:if> ${price}</th>
-                <th><c:if test="${title == null}"> Password </c:if> ${title}</th>
             </tr>
             </thead>
             <tbody>
@@ -51,7 +50,6 @@
                 <td><c:out value="${product.lastname}" /></td>
                 <td><c:out value="${product.balance}" /></td>
                 <td><c:out value="${product.mail}" /></td>
-                <td><c:out value="${product.password}" /></td>
             </tr>
              </c:forEach>
             </tbody>
