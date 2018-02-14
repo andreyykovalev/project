@@ -9,8 +9,8 @@ import java.util.Date;
 
 @Builder
 public class EntityWorkOrder {
-	@Getter
-	Long id;
+
+	@Getter @Setter Long id;
 	@Getter @Setter EntityCustomer customer;
 	@Getter @Setter EntityPackage packages;
 	@Getter @Setter Date createdAt;
@@ -33,10 +33,12 @@ public class EntityWorkOrder {
 		this.status = status;
 	}
 
-	public EntityWorkOrder(Long id, EntityCustomer customer, EntityPackage packages, Date dateEnd) {
 
-	}
-
-	public EntityWorkOrder(long id) {
-	}
+    public EntityWorkOrder(EntityCustomer customer, EntityPackage pack, Date date, Date dateToCharge, boolean status) {
+		this.customer = customer;
+		this.packages = pack;
+		this.createdAt = date;
+		this.dateEnd = dateToCharge;
+		this.status = status;
+    }
 }

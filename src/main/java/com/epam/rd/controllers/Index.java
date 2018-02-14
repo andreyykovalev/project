@@ -2,6 +2,7 @@ package com.epam.rd.controllers;
 
 
 import com.epam.rd.DataBaseUtility;
+import com.epam.rd.model.ModelCustomer;
 import com.epam.rd.model.ModelPackage;
 import com.epam.rd.model.ModelWorkOrder;
 import com.epam.rd.model.entity.EntityCustomer;
@@ -65,18 +66,14 @@ public class Index extends HttpServlet {
             langId = 1;
         } else langId = 2;
 
-        EntityPackage pack;
+        EntityPackage pack = null;
         ModelPackage modelPackage = new ModelPackage(langId);
 
         if (id != null) {
             pack = modelPackage.loadById((long) Integer.parseInt(id));
             logger.info("Showing a page with desired package");
-        } else {
-            long sessionId = Long.parseLong((String) session.getAttribute("id"));
-            pack = modelPackage.loadById(sessionId);
+            request.setAttribute("pack", pack);
         }
-        request.setAttribute("pack", pack);
-
         String message = "";
 
         String url = "/internet.jsp";
@@ -89,8 +86,9 @@ public class Index extends HttpServlet {
                     dateToCharge.setTime(dateToCharge.getTime() + 24 * 60 * 60 * 1000);
                 }
                 EntityCustomer customer = (EntityCustomer) session.getAttribute("customer");
-                EntityWorkOrder order = new EntityWorkOrder(customer, pack, new Date(), dateToCharge);
+                boolean status = true;
 
+                EntityWorkOrder order = new EntityWorkOrder(customer, pack, new Date(), dateToCharge, status);
 
                 List<EntityWorkOrder> listOrders = new ArrayList<>();
                 modelWorkOrder.load(1).forEach((o) -> {
@@ -108,15 +106,18 @@ public class Index extends HttpServlet {
                     }
                 }
 
-                for (EntityWorkOrder workOrderThisCust : listOrders) {
-                    if (workOrderThisCust.getCustomer().getBalance() < pack.getPrice()) {
+                    if (customer.getBalance() < pack.getPrice()) {
                         message = LocaleMessageProvider.getInstance().encode("low_balance");
                         IsOrderValid = false;
                         logger.info("Purchase failure. Not enough money");
                     }
-                }
+
                 if (IsOrderValid) {
+                    ModelCustomer factory = new ModelCustomer();
+                    customer.setBalance(customer.getBalance() - pack.getPrice());
+                    factory.update(customer);
                     modelWorkOrder.create(order);
+
                     url = "/workspace";
                     logger.info("Purchase success");
 

@@ -22,12 +22,7 @@
 
 <jsp:include page="/admin/HeaderAdmin.jsp"/>
 <body>
-    <h1>Tariffs management</h1>
-    <h2>
-        &nbsp;&nbsp;&nbsp;
-        <a href="/list">List All tariffs</a>
 
-    </h2>
 <div align="center">
     <c:if test="${product != null}">
     <form action="update" method="post">
@@ -41,53 +36,39 @@
 
             <table border="1" cellpadding="5">
                 <caption>
-                    <h2>
+                    <h5>
                         <c:if test="${product != null}">
-                            Edit Book
+                            Change expiry date
                         </c:if>
-                        <c:if test="${product == null}">
-                            Add New Book
-                        </c:if>
-                    </h2>
+                    </h5>
                 </caption>
 
                 <c:if test="${product != null}">
                     <input type="hidden" name="id" value="<c:out value='${product.id}' />" />
                 </c:if>
+
+                <div style="min-height: 50px; max-width: 400px; background-color: #0d87e9;">
+                    <h5>Status: 1 = activate service </br>
+                    Status: 0 = deactivate service</h5>
+                </div>
+
                 <tr>
-                    <th>Name</th>
+                    <th>Status </th>
                     <td>
-                        <input type="text" name="name" size="45"
-                               value="<c:out value='${product.customer.id}' />"
-                        />
-                    </td>
-                </tr>
-                <tr>
-                    <th>Description </th>
-                    <td>
-                        <input type="text" name="description" size="45"
-                               value="<c:out value='${product.packages.id}' />"
-                        />
+                        <input min="0" max="1" type="number" name="status" size="45"
+                               value="${product.status}"/>
+                    </td>"
                     </td>
                 </tr>
 
                 <tr>
-                    <th>Image </th>
+                    <th>Expiry date </th>
                     <td>
-                        <input type="text" name="image" size="45"
+                        <input type="date" name="date" size="45"
                                value=<fmt:formatDate value="${product.dateEnd}" pattern="yyyy-MM-dd HH:mm:ss" />
                                        />
                                        </td>"
 
-                    </td>
-                </tr>
-
-                <tr>
-                    <th>Price </th>
-                    <td>
-                        <input type="text" name="price" size="45"
-                               value="<c:out value='${product.id}' />"
-                        />
                     </td>
                 </tr>
 

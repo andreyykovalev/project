@@ -98,15 +98,27 @@ public class OrdersManaging extends HttpServlet {
 
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 
-        long name = Integer.parseInt(request.getParameter("name"));
-        long description = Integer.parseInt(request.getParameter("description"));
-        Date image = format.parse(request.getParameter("image"));
-        long price = Integer.parseInt(request.getParameter("price"));
+        long id = Long.parseLong(request.getParameter("id"));
+        Date dateEnd = format.parse(request.getParameter("date"));
+        Integer status  = Integer.parseInt(request.getParameter("status"));
+        boolean isActivated;
+        if(status == 1){
+            isActivated = true;
+        }else isActivated = false;
 
-        EntityCustomer cust = modelCustomer.loadById(name);
-        EntityPackage pack = modelPackage.loadById(description);
+        EntityWorkOrder workOrder = modelWorkOrder.load(id, 1);
 
-        EntityWorkOrder newBook2 = new EntityWorkOrder(price, cust, pack, image);
+        EntityCustomer cust = modelCustomer.loadById(workOrder.getCustomer().getId());
+        EntityPackage pack = modelPackage.loadById(workOrder.getPackages().getId());
+
+        EntityWorkOrder newBook2 = EntityWorkOrder.builder()
+                .customer(cust)
+                .packages(pack)
+                .dateEnd(dateEnd)
+                .status(isActivated)
+                .createdAt(workOrder.getCreatedAt())
+                .id(workOrder.getId())
+                .build();
 
 
         modelWorkOrder.update(newBook2);

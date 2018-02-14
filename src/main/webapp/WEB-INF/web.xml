@@ -32,6 +32,13 @@
     </filter-mapping>
 
     <servlet>
+        <servlet-name>ControllerScheduleWorkOrder</servlet-name>
+        <servlet-class>com.epam.rd.controllers.ControllerScheduleWorkOrder</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+
+    <servlet>
         <servlet-name>Index</servlet-name>
         <servlet-class>com.epam.rd.controllers.Index</servlet-class>
     </servlet>

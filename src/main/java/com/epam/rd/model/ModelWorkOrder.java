@@ -17,6 +17,7 @@ public class ModelWorkOrder extends Model {
     private final String CREATE = "INSERT INTO WORK_ORDER (ID_CUSTOMER, ID_PACKAGE, CREATED_AT, DATE_END, STATUS) " +
             "VALUES('%d','%d','%s','%s', '%d')";
     private final String UPDATE = "UPDATE WORK_ORDER SET DATE_END = '%s', STATUS = %d WHERE ID_WORK_ORDER = %d";
+    private final String UPDATE_STATUS = "UPDATE WORK_ORDER SET STATUS = %d WHERE ID_WORK_ORDER = %d";
     private final String LOAD_BY_ID = "SELECT * FROM WORK_ORDER WHERE ID_WORK_ORDER = '%d'";
     private final String LOAD_ALL = "SELECT * FROM WORK_ORDER";
     private final String DISABLE_PACKAGE = "DELETE FROM CUSTOMER_TO_PACKAGE WHERE ID_CUSTOMER = %d AND ID_PACKAGE = %d ";
@@ -56,7 +57,7 @@ public class ModelWorkOrder extends Model {
                     status)
             );
             customer.getPackages().add(item.getPackages().getId());
-            customer.setBalance(customer.getBalance() - packageInfo.getPrice());
+
             modelCustomer.update(customer);
         } else {
             throw new UnsupportedOperationException("Incorrect data for order");
@@ -75,6 +76,16 @@ public class ModelWorkOrder extends Model {
             status = 1;
         } else status = 0;
         update(String.format(UPDATE, sqlDate(item.getDateEnd()), status, item.getId()));
+        return;
+
+    }
+
+    public void updateStatus(EntityWorkOrder item) {
+        int status;
+        if (item.getStatus()) {
+            status = 1;
+        } else status = 0;
+        update(String.format(UPDATE_STATUS, status, item.getId()));
         return;
 
     }

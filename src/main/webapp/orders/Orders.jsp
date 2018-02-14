@@ -49,7 +49,7 @@
             <tr>
                 <td><c:out value="${product.customer.mail}" /></td>
                 <td><c:out value="${product.packages.name}" /></td>
-                <td><c:out value="${product.createdAt}" /></td>
+                <td><fmt:formatDate value="${product.createdAt}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
                 <td><fmt:formatDate value="${product.dateEnd}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
                 <td><c:out value="${product.status}" /></td>
                 <td>

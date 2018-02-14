@@ -56,10 +56,6 @@
                     <c:if test="${product.status == true && lang_number == 2}"> Подключен </c:if>
                 <c:if test="${product.status == false && lang_number == 1}"> Cancelled </c:if>
                 <c:if test="${product.status == false && lang_number == 2}"> Остановлен </c:if></td>
-
-
-
-
             </tr>
             </c:forEach>
             </tbody>
