@@ -23,7 +23,12 @@
 
     <filter-mapping>
         <filter-name>LogFilter</filter-name>
-        <url-pattern>/*</url-pattern>
+        <url-pattern>/login</url-pattern>
+    </filter-mapping>
+
+    <filter-mapping>
+        <filter-name>LogFilter</filter-name>
+        <url-pattern>/main</url-pattern>
     </filter-mapping>
 
     <servlet>
