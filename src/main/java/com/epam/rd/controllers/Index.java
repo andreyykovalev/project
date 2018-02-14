@@ -8,6 +8,7 @@ import com.epam.rd.model.entity.EntityCustomer;
 import com.epam.rd.model.entity.EntityPackage;
 import com.epam.rd.model.entity.EntityWorkOrder;
 import com.epam.rd.util.LanguageDefiner;
+import com.epam.rd.util.LocaleMessageProvider;
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -100,8 +101,8 @@ public class Index extends HttpServlet {
 
                 boolean IsOrderValid = true;
                 for (EntityWorkOrder workOrderThisCust : listOrders) {
-                    if (workOrderThisCust.getPackages().getType() == pack.getType()) {
-                        message = "You've already got the service of this type";
+                    if (workOrderThisCust.getPackages().getType() == pack.getType() && workOrderThisCust.getStatus()) {
+                        message = LocaleMessageProvider.getInstance().encode("package_exists");
                         IsOrderValid = false;
                         logger.info("Purchase failure. Order already exists");
                     }
@@ -109,7 +110,7 @@ public class Index extends HttpServlet {
 
                 for (EntityWorkOrder workOrderThisCust : listOrders) {
                     if (workOrderThisCust.getCustomer().getBalance() < pack.getPrice()) {
-                        message = "You don't have enough money on your balance";
+                        message = LocaleMessageProvider.getInstance().encode("low_balance");
                         IsOrderValid = false;
                         logger.info("Purchase failure. Not enough money");
                     }

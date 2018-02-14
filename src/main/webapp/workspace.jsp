@@ -52,8 +52,12 @@
                 <td><c:out value="${product.packages.description}"/></td>
                 <td><fmt:formatDate value="${product.createdAt}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
                 <td><fmt:formatDate value="${product.dateEnd}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
-                <td><c:if test="${product.status == true}"> Active </c:if>
-                <c:if test="${product.status == false}"> Cancelled </c:if></td>
+                <td><c:if test="${product.status == true && lang_number == 1}"> Active </c:if>
+                    <c:if test="${product.status == true && lang_number == 2}"> Подключен </c:if>
+                <c:if test="${product.status == false && lang_number == 1}"> Cancelled </c:if>
+                <c:if test="${product.status == false && lang_number == 2}"> Остановлен </c:if></td>
+
+
 
 
             </tr>

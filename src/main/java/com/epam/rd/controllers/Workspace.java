@@ -5,6 +5,7 @@ import com.epam.rd.model.ModelCustomer;
 import com.epam.rd.model.ModelWorkOrder;
 import com.epam.rd.model.entity.EntityCustomer;
 import com.epam.rd.model.entity.EntityWorkOrder;
+import com.epam.rd.util.LanguageDefiner;
 import com.epam.rd.util.PackageSortByPrice;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -60,9 +61,31 @@ public class Workspace extends HttpServlet {
     private void listProduct(HttpServletRequest request, HttpServletResponse response)
             throws Exception {
         HttpSession session = request.getSession();
+
+        String pageLangReq = request.getParameter("lang");
+        String pageLanguage;
+
+        if (pageLangReq == null) {
+            String pageLanguageSession = (String) session.getAttribute("lang");
+            session.setAttribute("lang", pageLanguageSession);
+            pageLanguage = pageLanguageSession;
+        } else {
+            session.setAttribute("lang", pageLangReq);
+            LanguageDefiner.definePageLang(pageLangReq);
+            pageLanguage = pageLangReq;
+        }
         ModelWorkOrder modelWorkOrder = new ModelWorkOrder();
         long customerId = (long) session.getAttribute("customer_id");
-        List<EntityWorkOrder> listOrders = modelWorkOrder.load(1);
+
+        int langId;
+        if (pageLanguage == null || pageLanguage.equals("en")) {
+            langId = 1;
+        } else langId = 2;
+
+        session.setAttribute("lang_number", langId);
+
+        List<EntityWorkOrder> listOrders = modelWorkOrder.load(langId);
+
         List<EntityWorkOrder> listOrdersThisCustomer = new ArrayList<>();
 
         for (EntityWorkOrder workOrder : listOrders) {

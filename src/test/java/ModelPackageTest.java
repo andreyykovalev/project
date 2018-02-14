@@ -49,7 +49,7 @@ public class ModelPackageTest {
 
     @Test
     public void getExistEntity() {
-        Assert.assertNotNull(element.loadById(15L));
+        Assert.assertNotNull(element.loadById(43L));
     }
 
     @Test
