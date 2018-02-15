@@ -28,8 +28,8 @@ import java.util.List;
 
 import static com.epam.rd.util.AttributesLocalizer.getLang;
 
-public class Index extends HttpServlet {
-    protected static final Logger logger = LoggerFactory.getLogger(Index.class);
+public class Product extends HttpServlet {
+    protected static final Logger logger = LoggerFactory.getLogger(Product.class);
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -72,11 +72,14 @@ public class Index extends HttpServlet {
         if (id != null) {
             pack = modelPackage.loadById((long) Integer.parseInt(id));
             logger.info("Showing a page with desired package");
-            request.setAttribute("pack", pack);
+        } else {
+            long sessionId = Long.parseLong((String) session.getAttribute("id"));
+            pack = modelPackage.loadById(sessionId);
         }
+        request.setAttribute("pack", pack);
         String message = "";
 
-        String url = "/internet.jsp";
+        String url = "/product.jsp";
 
         String action = request.getParameter("action");
         if (action != null) {

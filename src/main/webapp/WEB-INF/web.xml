@@ -40,7 +40,7 @@
 
     <servlet>
         <servlet-name>Index</servlet-name>
-        <servlet-class>com.epam.rd.controllers.Index</servlet-class>
+        <servlet-class>com.epam.rd.controllers.Product</servlet-class>
     </servlet>
 
     <servlet-mapping>
