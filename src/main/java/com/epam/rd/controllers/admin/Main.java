@@ -17,28 +17,15 @@ public class Main extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String pageLanguage;
         HttpSession session = request.getSession();
-        String sessionPageLang = (String) session.getAttribute("lang");
-
-
-        String langByRequest = request.getParameter("lang");
-        if (langByRequest != null) {
-            pageLanguage = langByRequest;
-        } else if (sessionPageLang != null) {
-            pageLanguage = sessionPageLang;
-        }
-
 
         String emailSes = (String) session.getAttribute("email");
         request.setAttribute("emailSes", emailSes);
 
-
         int langId = 1;
         ModelPackage factory = new ModelPackage(langId);
         List packages = factory.load();
-        //    EntityPackage pack = factory.load((long)13);
-        //     request.setAttribute("pack", pack);
+
         request.setAttribute("packages", packages);
 
 

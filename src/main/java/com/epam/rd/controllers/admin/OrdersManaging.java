@@ -43,19 +43,19 @@ public class OrdersManaging extends HttpServlet {
         try {
             switch (action) {
                 case "/orders/delete":
-                    deleteBook(request, response);
+                    deleteOrder(request, response);
                     break;
                 case "/orders/edit":
                     showEditForm(request, response);
                     break;
                 case "/orders/update":
-                    updateBook(request, response);
+                    updateOrder(request, response);
                     break;
                 case "/orders/list":
-                    listProduct(request, response);
+                    listOrders(request, response);
                     break;
                 default:
-                    listProduct(request, response);
+                    listOrders(request, response);
                     break;
             }
         } catch (Exception ex) {
@@ -63,12 +63,12 @@ public class OrdersManaging extends HttpServlet {
         }
     }
 
-    private void listProduct(HttpServletRequest request, HttpServletResponse response)
+    private void listOrders(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException, ServletException {
         ModelWorkOrder modelWorkOrder = new ModelWorkOrder();
-        List<EntityWorkOrder> listProducts = modelWorkOrder.load(1);
+        List<EntityWorkOrder> listOrders = modelWorkOrder.load(1);
 
-        request.setAttribute("listProduct", listProducts);
+        request.setAttribute("listProduct", listOrders);
         RequestDispatcher dispatcher = request.getRequestDispatcher("Orders.jsp");
         dispatcher.forward(request, response);
     }
@@ -77,20 +77,14 @@ public class OrdersManaging extends HttpServlet {
             throws SQLException, ServletException, IOException {
         ModelWorkOrder modelWorkOrder = new ModelWorkOrder();
         long id = Integer.parseInt(request.getParameter("id"));
-        EntityWorkOrder existingBook = modelWorkOrder.load(id, 1);
+        EntityWorkOrder existingOrder = modelWorkOrder.load(id, 1);
         RequestDispatcher dispatcher = request.getRequestDispatcher("EditOrder.jsp");
-        request.setAttribute("product", existingBook);
+        request.setAttribute("product", existingOrder);
         dispatcher.forward(request, response);
 
     }
 
-    private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-
-    private String sqlDate(Date d) {
-        return sdf.format(d);
-    }
-
-    private void updateBook(HttpServletRequest request, HttpServletResponse response)
+    private void updateOrder(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException, ParseException {
         ModelCustomer modelCustomer = new ModelCustomer();
         ModelWorkOrder modelWorkOrder = new ModelWorkOrder();
@@ -111,7 +105,7 @@ public class OrdersManaging extends HttpServlet {
         EntityCustomer cust = modelCustomer.loadById(workOrder.getCustomer().getId());
         EntityPackage pack = modelPackage.loadById(workOrder.getPackages().getId());
 
-        EntityWorkOrder newBook2 = EntityWorkOrder.builder()
+        EntityWorkOrder newOrder = EntityWorkOrder.builder()
                 .customer(cust)
                 .packages(pack)
                 .dateEnd(dateEnd)
@@ -121,11 +115,11 @@ public class OrdersManaging extends HttpServlet {
                 .build();
 
 
-        modelWorkOrder.update(newBook2);
+        modelWorkOrder.update(newOrder);
         response.sendRedirect("list");
     }
 
-    private void deleteBook(HttpServletRequest request, HttpServletResponse response)
+    private void deleteOrder(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException {
         ModelWorkOrder modelWorkOrder = new ModelWorkOrder();
         long id = Integer.parseInt(request.getParameter("id"));
