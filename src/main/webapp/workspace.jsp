@@ -28,7 +28,7 @@
 </head>
 <jsp:include page="/header.jsp"/>
 <body>
-<div align="right">  <c:if test="${labelbalance == null}"> Your current balance  </c:if>${labelbalance}: ${balance}</div>
+<div align="right">  <c:if test="${labelbalance == null}"> Your current balance  </c:if>${labelbalance}: ${customer.balance}</div>
 <div align="center">
     <h5 align="left" style="margin-left: 10px">  <c:if test="${workspacemessage == null}"> The tariffs you are currently subscribed </c:if> ${workspacemessage}</h5>
     <span id="span_big">

@@ -28,4 +28,7 @@ public class Scheduler {
                 e.getDateEnd().getTime() - new Date().getTime(), 2592000000L , TimeUnit.MILLISECONDS));
     }
 
+    public ScheduledExecutorService getExecutorService() {
+        return executorService;
+    }
 }

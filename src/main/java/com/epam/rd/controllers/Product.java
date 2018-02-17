@@ -2,6 +2,7 @@ package com.epam.rd.controllers;
 
 
 import com.epam.rd.DataBaseUtility;
+import com.epam.rd.controllers.schedule.Scheduler;
 import com.epam.rd.model.ModelCustomer;
 import com.epam.rd.model.ModelPackage;
 import com.epam.rd.model.ModelWorkOrder;
@@ -25,6 +26,7 @@ import java.util.ArrayList;
 
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import static com.epam.rd.util.AttributesLocalizer.getLang;
 
@@ -109,17 +111,21 @@ public class Product extends HttpServlet {
                     }
                 }
 
-                    if (customer.getBalance() < pack.getPrice()) {
-                        message = LocaleMessageProvider.getInstance().encode("low_balance");
-                        IsOrderValid = false;
-                        logger.info("Purchase failure. Not enough money");
-                    }
+                if (customer.getBalance() < pack.getPrice()) {
+                    message = LocaleMessageProvider.getInstance().encode("low_balance");
+                    IsOrderValid = false;
+                    logger.info("Purchase failure. Not enough money");
+                }
 
                 if (IsOrderValid) {
-                    ModelCustomer factory = new ModelCustomer();
                     customer.setBalance(customer.getBalance() - pack.getPrice());
-                    factory.update(customer);
                     modelWorkOrder.create(order);
+
+                    //isn't covered by tests
+
+                    ModelWorkOrder finalModelWorkOrder = modelWorkOrder;
+                    new Scheduler().getExecutorService().scheduleAtFixedRate(() -> finalModelWorkOrder.delete(order.getId()),
+                            order.getDateEnd().getTime() - new Date().getTime(), 2592000000L, TimeUnit.MILLISECONDS);
 
                     url = "/workspace";
                     logger.info("Purchase success");
