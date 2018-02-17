@@ -131,30 +131,39 @@ public class ModelCustomer extends Model {
         deletePackages(customer);
     }
 
-    public boolean create(EntityCustomer user) throws Exception {
+    public boolean create(EntityCustomer user) {
         String query = "INSERT INTO customer (firstname, lastname, mail, password, balance) VALUES(?,?,?,?,?)";
         boolean rowInserted = false;
+        try (
+                PreparedStatement statement = connection.prepareStatement(query,
+                        Statement.RETURN_GENERATED_KEYS)) {
 
-        PreparedStatement statement = connection.prepareStatement(query,
-                Statement.RETURN_GENERATED_KEYS);
+            statement.setString(1, user.getFirstname());
+            statement.setString(2, user.getLastname());
+            statement.setString(3, user.getMail());
+            statement.setString(4, user.getPassword());
+            statement.setDouble(5, user.getBalance());
+            statement.executeUpdate();
 
-        statement.setString(1, user.getFirstname());
-        statement.setString(2, user.getLastname());
-        statement.setString(3, user.getMail());
-        statement.setString(4, user.getPassword());
-        statement.setDouble(5, user.getBalance());
-        statement.executeUpdate();
-
-        try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
-            if (generatedKeys.next()) {
-                user.setId(generatedKeys.getLong(1));
+            try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    user.setId(generatedKeys.getLong(1));
+                }
             }
-        }
-        if (!user.getPackages().isEmpty()) {
-            user.getPackages().forEach((Long v) -> update(String.format(CREATE_CUSTOMER_PACKAGES, lastId, v)));
+            if (user.getPackages() != null) {
+                if (!user.getPackages().isEmpty()) {
+                    user.getPackages().forEach((Long v) -> update(String.format(CREATE_CUSTOMER_PACKAGES, lastId, v)));
+                }
+            }
+            rowInserted = true;
+
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+            logger.error(query);
         }
         return rowInserted;
     }
+
     private void deletePackages(EntityCustomer customer) {
         update(String.format(DELETE_PACKAGES, customer.getId()));
     }

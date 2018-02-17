@@ -66,7 +66,7 @@ public class Product extends HttpServlet {
             langId = 1;
         } else langId = 2;
 
-        EntityPackage pack = null;
+        EntityPackage pack;
         ModelPackage modelPackage = new ModelPackage(langId);
 
         if (id != null) {

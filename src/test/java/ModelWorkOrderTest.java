@@ -1,8 +1,7 @@
-import com.epam.rd.model.ModelUser;
+
 import com.epam.rd.model.ModelWorkOrder;
 import com.epam.rd.model.entity.EntityCustomer;
 import com.epam.rd.model.entity.EntityPackage;
-import com.epam.rd.model.entity.EntityUser;
 import com.epam.rd.model.entity.EntityWorkOrder;
 import org.junit.Assert;
 import org.junit.Test;

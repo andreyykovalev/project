@@ -69,7 +69,7 @@ public class Registration extends HttpServlet {
             }
 
 
-            Pattern pattern3 = Pattern.compile("^[а-яА-Я]{30}|[a-zA-Z]{30}$", Pattern.CASE_INSENSITIVE);
+            Pattern pattern3 = Pattern.compile("^[а-яА-Я]{0,30}|[a-zA-Z]{0,30}$", Pattern.CASE_INSENSITIVE);
             Matcher matcher3 = pattern3.matcher(firstName);
             Matcher matcher4 = pattern3.matcher(lastName);
             if (!matcher3.find() || !matcher4.find()) {

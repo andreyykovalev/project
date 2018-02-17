@@ -57,7 +57,7 @@ public class ModelWorkOrder extends Model {
                     status)
             );
             customer.getPackages().add(item.getPackages().getId());
-
+            customer.setBalance(customer.getBalance() - packageInfo.getPrice());
             modelCustomer.update(customer);
         } else {
             throw new UnsupportedOperationException("Incorrect data for order");
