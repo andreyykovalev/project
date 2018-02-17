@@ -23,7 +23,6 @@ public class Scheduler {
         ModelWorkOrder wo = new ModelWorkOrder();
         List<EntityWorkOrder> list = wo.load(1);
 
-
         list.forEach((EntityWorkOrder e) -> executorService.scheduleAtFixedRate(() -> wo.delete(e.getId()),
                 e.getDateEnd().getTime() - new Date().getTime(), 2592000000L , TimeUnit.MILLISECONDS));
     }

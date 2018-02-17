@@ -121,7 +121,12 @@ public class Product extends HttpServlet {
                     customer.setBalance(customer.getBalance() - pack.getPrice());
                     modelWorkOrder.create(order);
 
-                    //isn't covered by tests
+                    //isn't covered by tests. what should be done in case of exception?
+
+                    /**If any execution of the task
+                     * encounters an exception, subsequent executions are suppressed.
+                     * Otherwise, the task will only terminate via cancellation or
+                     * termination of the executor.*/
 
                     ModelWorkOrder finalModelWorkOrder = modelWorkOrder;
                     new Scheduler().getExecutorService().scheduleAtFixedRate(() -> finalModelWorkOrder.delete(order.getId()),
