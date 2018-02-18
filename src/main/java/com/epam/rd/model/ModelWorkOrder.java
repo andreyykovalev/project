@@ -19,6 +19,7 @@ public class ModelWorkOrder extends Model {
     private final String UPDATE = "UPDATE WORK_ORDER SET DATE_END = '%s', STATUS = %d WHERE ID_WORK_ORDER = %d";
     private final String UPDATE_STATUS = "UPDATE WORK_ORDER SET STATUS = %d WHERE ID_WORK_ORDER = %d";
     private final String LOAD_BY_ID = "SELECT * FROM WORK_ORDER WHERE ID_WORK_ORDER = '%d'";
+    private final String LOAD_BY_DETAILS = "SELECT * FROM WORK_ORDER WHERE ID_CUSTOMER = %d AND ID_PACKAGE = %d ";
     private final String LOAD_ALL = "SELECT * FROM WORK_ORDER";
     private final String DISABLE_PACKAGE = "DELETE FROM CUSTOMER_TO_PACKAGE WHERE ID_CUSTOMER = %d AND ID_PACKAGE = %d ";
     private final String DELETE_WORK_ORDER = "DELETE FROM WORK_ORDER WHERE ID_WORK_ORDER = %d ";
@@ -98,6 +99,47 @@ public class ModelWorkOrder extends Model {
      */
     public void delete(Long id) {
         EntityWorkOrder item = load(id, 1);
+
+        if (item.getCustomer().getBalance() - item.getPackages().getPrice() > -1) {
+            ModelCustomer customerModel = new ModelCustomer();
+            item.getCustomer().setBalance(item.getCustomer().getBalance() - item.getPackages().getPrice());
+            item.setDateEnd(
+                    Date.from(LocalDate.now()
+                            .plusMonths(1)
+                            .atStartOfDay(ZoneId.systemDefault()).toInstant())
+            );
+            update(item);
+            customerModel.update(item.getCustomer());
+
+        } else {
+            update(String.format(DISABLE_PACKAGE, item.getCustomer().getId(), item.getPackages().getId()));
+            item.setStatus(false);
+            update(item);
+        }
+
+        logger.error("Incoming item is invalid");
+    }
+
+
+    public EntityWorkOrder loadByDetails(EntityCustomer customer,EntityPackage pack) {
+        List<Map> collection = query(String.format(LOAD_BY_DETAILS, customer.getId(), pack.getId()));
+
+        final EntityWorkOrder[] wItem = new EntityWorkOrder[1];
+        if (collection != null) {
+            collection.forEach((Map e) -> wItem[0] = EntityWorkOrder.builder()
+                    .id(Long.parseLong((e.get("id_work_order")).toString()))
+                    .createdAt(new Date(((Timestamp) e.get("created_at")).getTime()))
+                    .dateEnd(new Date(((Timestamp) e.get("date_end")).getTime()))
+                    .customer(customer)
+                    .packages(pack)
+                    .status((Boolean) e.get("status"))
+                    .build());
+        }
+        return wItem[0];
+    }
+
+    public void deleteByDetails(EntityWorkOrder order) {
+        EntityWorkOrder item = loadByDetails(order.getCustomer(), order.getPackages());
 
         if (item.getCustomer().getBalance() - item.getPackages().getPrice() > -1) {
             ModelCustomer customerModel = new ModelCustomer();
