@@ -65,6 +65,10 @@ public class ModelWorkOrder extends Model {
         }
     }
 
+    public void deleteCompletely(EntityWorkOrder item) {
+        update(String.format(DELETE_WORK_ORDER, item.getId()));
+    }
+
     /**
      * Can update only date end for.
      *
@@ -97,7 +101,7 @@ public class ModelWorkOrder extends Model {
      *
      * @param id must include id
      */
-    public void delete(Long id) {
+    public void forceCharge(Long id) {
         EntityWorkOrder item = load(id, 1);
 
         if (item.getCustomer().getBalance() - item.getPackages().getPrice() > -1) {
@@ -138,7 +142,7 @@ public class ModelWorkOrder extends Model {
         return wItem[0];
     }
 
-    public void deleteByDetails(EntityWorkOrder order) {
+    public void forceChargeByOrderDetails(EntityWorkOrder order) {
         EntityWorkOrder item = loadByDetails(order.getCustomer(), order.getPackages());
 
         if (item.getCustomer().getBalance() - item.getPackages().getPrice() > -1) {

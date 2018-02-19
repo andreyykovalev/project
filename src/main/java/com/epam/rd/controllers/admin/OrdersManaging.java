@@ -123,7 +123,7 @@ public class OrdersManaging extends HttpServlet {
             throws SQLException, IOException {
         ModelWorkOrder modelWorkOrder = new ModelWorkOrder();
         long id = Integer.parseInt(request.getParameter("id"));
-        modelWorkOrder.delete(id);
+        modelWorkOrder.forceCharge(id);
         response.sendRedirect("list");
     }
 }

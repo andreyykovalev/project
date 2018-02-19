@@ -12,16 +12,16 @@ public class ModelUserTest {
     @Test
     public void createRecord() {
         EntityUser s = EntityUser.builder()
-                .login("Admin")
+                .login("Admin2")
                 .password("password")
                 .level(1)
                 .build();
 
         sut.create(s);
 
-        Assert.assertEquals("Admin" ,sut.loadByLogin("Admin").getLogin());
-        Assert.assertEquals("password" ,sut.loadByLogin("Admin").getPassword());
-        Assert.assertEquals("1" ,sut.loadByLogin("Admin").getLevel().toString());
+        Assert.assertEquals("Admin2" ,sut.loadByLogin("Admin2").getLogin());
+        Assert.assertEquals("password" ,sut.loadByLogin("Admin2").getPassword());
+        Assert.assertEquals("1" ,sut.loadByLogin("Admin2").getLevel().toString());
 
         EntityUser user = sut.loadByLogin(s.getLogin());
         sut.delete(user);
@@ -77,7 +77,7 @@ public class ModelUserTest {
     @Test
     public void getExistEntity() {
         EntityUser s = EntityUser.builder()
-                .login("Admin")
+                .login("Admin3")
                 .password("password")
                 .level(1)
                 .build();
@@ -85,7 +85,8 @@ public class ModelUserTest {
         sut.create(s);
         Assert.assertNotNull(sut.loadByLogin(s.getLogin()));
 
-        sut.delete(s);
+        EntityUser user = sut.loadByLogin(s.getLogin());
+        sut.delete(user);
     }
 
     @Test

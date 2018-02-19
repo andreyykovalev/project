@@ -55,7 +55,7 @@
                 <td>
                     <a href="/orders/edit?id=${product.id}">Edit</a>
                     &nbsp;&nbsp;&nbsp;&nbsp;
-                    <a href="/orders/delete?id=${product.id}">Delete</a>
+                    <a href="/orders/delete?id=${product.id}">Charge</a>
                 </td>
             </tr>
              </c:forEach>

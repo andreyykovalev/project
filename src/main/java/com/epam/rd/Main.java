@@ -1,7 +1,6 @@
 package com.epam.rd;
 
 
-import com.epam.rd.controllers.schedule.Scheduler;
 import com.epam.rd.model.ModelCustomer;
 import com.epam.rd.model.ModelPackage;
 import com.epam.rd.model.ModelWorkOrder;
@@ -41,7 +40,7 @@ public class Main {
         EntityWorkOrder wo = factoryOrder.loadByDetails(customer, pack);
 
         ScheduledExecutorService executorService = Executors.newScheduledThreadPool(30);
-        executorService.scheduleAtFixedRate(new Thread(() -> factoryOrder.deleteByDetails(wo)),
+        executorService.scheduleAtFixedRate(new Thread(() -> factoryOrder.forceChargeByOrderDetails(wo)),
                 order.getDateEnd().getTime() - new Date().getTime(), 3000L, TimeUnit.MILLISECONDS);
 
 

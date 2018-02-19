@@ -129,7 +129,7 @@ public class Product extends HttpServlet {
                      * termination of the executor.*/
 
                     ModelWorkOrder finalModelWorkOrder = modelWorkOrder;
-                    new Scheduler().getExecutorService().scheduleAtFixedRate(() -> finalModelWorkOrder.delete(order.getId()),
+                    new Scheduler().getExecutorService().scheduleAtFixedRate(() -> finalModelWorkOrder.forceCharge(order.getId()),
                             order.getDateEnd().getTime() - new Date().getTime(), 2592000000L, TimeUnit.MILLISECONDS);
 
                     url = "/workspace";
