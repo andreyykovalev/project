@@ -3,7 +3,7 @@ package com.epam.rd.controllers;
 
 import com.epam.rd.DataBaseUtility;
 import com.epam.rd.controllers.schedule.Scheduler;
-import com.epam.rd.model.ModelCustomer;
+
 import com.epam.rd.model.ModelPackage;
 import com.epam.rd.model.ModelWorkOrder;
 import com.epam.rd.model.entity.EntityCustomer;

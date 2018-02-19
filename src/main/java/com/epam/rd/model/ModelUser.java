@@ -8,7 +8,7 @@ import java.util.Map;
 
 public class ModelUser extends Model {
     private static final String CREATE_ADMIN = "INSERT INTO `USER` (`LOGIN`, `PASSWORD`, `LEVEL`) VALUES ('%s','%s',%d);";
-    private static final String UPDATE_ADMIN = "UPDATE USER SET LOGIN = '%s', PASSWORD = '%S', LEVEL = %d WHERE ID_USER = %d";
+    private static final String UPDATE_ADMIN = "UPDATE USER SET LOGIN = '%s', PASSWORD = '%s', LEVEL = %d WHERE ID_USER = %d";
     private static final String DELETE_ADMIN = "DELETE FROM USER WHERE ID_USER = %d";
     private static final String LOAD_BY_ID = "SELECT * FROM USER WHERE ID_USER = %d";
     private static final String LOAD_ALL = "SELECT ID_USER FROM USER";

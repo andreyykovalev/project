@@ -167,5 +167,4 @@ public class ModelCustomer extends Model {
     private void deletePackages(EntityCustomer customer) {
         update(String.format(DELETE_PACKAGES, customer.getId()));
     }
-
 }
